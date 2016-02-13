@@ -15,6 +15,8 @@ var User = require('./app/models/user');
 mongoose.connect('mongodb://localhost:27017/rentcontrol')
 
 //app config
+app.use(express.static(__dirname + "/www"));
+app.listen(process.env.PORT || port);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -130,6 +132,4 @@ apiRouter.route('/users/:user_id')
 
 
 //listen on port 8080
-
-app.listen(port);
 console.log("Listening on port " + port);

@@ -2,6 +2,9 @@
 
 //packages
 var express = require('express');
+var cors = require('cors'); //cors middleware
+app.use(cors());
+
 var app = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');

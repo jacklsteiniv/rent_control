@@ -1,0 +1,26 @@
+<ion-view view-title="Signup">
+  <ion-content class="padding">
+    Espeon is bae
+    <form>
+      <ion-list>
+         <label class="item item-input">
+         <span class="input-label">Name</span>
+         <input type="text" placeholder="First and last" ng-model="user.userData.name">
+         </label>
+          <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" placeholder="your@email" ng-model="user.userData.email">
+          </label>
+          <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" placeholder="At least 6 characters" ng-model="user.userData.password">
+          </label>
+           <label class="item item-input">
+          <span class="input-label">Zip</span>
+          <input type="password" placeholder="i.e. 90027" ng-model="user.userData.zip">
+          </label>
+        </ion-list>
+      <button class="button button-stable button-block" ng-click="user.userData.create()">Done</button>
+        </form>
+  </ion-content>
+</ion-view>

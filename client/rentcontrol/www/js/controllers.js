@@ -1,6 +1,41 @@
 angular.module('starter.controllers', [])
 
-.controller('HomeCtrl', function($scope) {})
+.controller('MainCtrl', function($scope, $location, Auth) {
+  var vm = this;
+
+  //get user info if logged in
+  vm.loggedIn = Auth.isLoggedIn();
+
+  //on each HTTP req, check if logged in
+  $scope.$on('$routeChangeStart', function(){
+    vm.loggedIn = Auth.isLoggedIn();
+
+
+  //get user info
+  Auth.getUser()
+    .success(function(data) {
+      vm.user = data;
+    });
+  });
+
+  //handle login
+  vm.doLogin = function() {
+
+    Auth.login(vm.loginData.email, vm.loginData.password)
+      .success(function(data) {
+
+        //take logged-in user to search page.
+        $window.location.href = '#/search'
+      });
+  };
+})
+
+//this controller handles user creation/auth.
+
+// .controller('UserCtrl', function($scope, User) {
+//   var vm = this;
+// })
+
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called

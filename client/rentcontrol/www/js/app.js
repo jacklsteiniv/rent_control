@@ -39,7 +39,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'HomeCtrl'
+        controller: 'MainCtrl'
       }
     }
   })
@@ -73,8 +73,27 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-  //Search page state below = tab.search.
+  //Login
+  $stateProvider
+  .state('signin', {
+    url: '/signin',
+    templateUrl: 'templates/login.html',
+    controller: 'MainCtrl'
+  })
 
+  //Signup
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html',
+    controller: 'MainCtrl'
+  })
+
+  //Search page state below = tab.search.
+  .state('search', {
+    url: '/search',
+    templateUrl: 'templates/search.html',
+    controller: 'MainCtrl'
+  });
 
 
   //results page below (hard-seed w/ data, ng-repeat.)

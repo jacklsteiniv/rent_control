@@ -15,6 +15,14 @@ var UserSchema = new Schema({
     schools: Boolean,
     crime: Boolean,
     walkscore: Boolean
+  }],
+  results: [{//this is the data grabbed from Zillow API on neighborhoods
+    //that meet the user's priorities.
+    neighborhood: String,
+    zindex: Number,
+    latitude: Number,
+    longitude: Number //grab lat and long to feed to Google Maps API
+    //for mapping.
   }]
 })
 

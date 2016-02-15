@@ -11,6 +11,10 @@ var port = 8080;
 //pull in the User schema from Mongo
 var User = require('./app/models/user');
 
+//token auth
+var jwt = require('jsonwebtoken');
+var superSecret = 'blamechance';
+
 //connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/rentcontrol')
 
@@ -43,10 +47,77 @@ app.get('/', function(req, res) {
 
 var apiRouter = express.Router();
 
-apiRouter.use(function(req, res, next) {
-  console.log("Visiting");
+//authentication route - must go before the CRUD routes
 
-  next();
+apiRouter.post('/authenticate', function(req, res) {
+
+  //find user, select email and password
+  User.findOne({
+    email: req.body.email
+  }).select('name email password').exec(function(err, user) {
+
+    if(err) throw err;
+
+    if(!user) {
+      res.json({
+        success: false,
+        message: 'Auth has failed - user not found'
+      })
+    } else if(user) {
+      //if user exists, check for a password match
+      var validPassword = user.comparePassword(req.body.password);
+      if(!validPassword) {
+        res.json({
+          success: false,
+          message: 'Auth failed - wrong password'
+        });
+      } else {
+        //if correct user and password
+        var token = jwt.sign({
+          name: user.name,
+          email: user.email
+        }, superSecret, {
+          expiresInMinutes: 1440 //24 hour lifespan for token
+        });
+
+        //return token as JSON
+        res.json({
+          success: true,
+          message: 'Here is your access token',
+          token: token
+        });
+      }
+    }
+
+  })
+});
+
+//route middleware for verifying token
+apiRouter.use(function(req, res, next) {
+
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if(token) {
+
+    jwt.verify(token, superSecret, function (err, decoded) {
+      if(err) {
+        return res.status(403).send({
+          success: false,
+          message: 'Failed authentication'
+        });
+      } else { //if the token is correct, all good
+        req.decoded = decoded;
+
+        next();
+      }
+    });
+  } else { //if no token
+      return res.status(403).send({
+        success: false,
+        message: 'No token was provided'
+      });
+    }
+
 });
 
 apiRouter.get('/', function(req, res) {
@@ -128,6 +199,11 @@ apiRouter.route('/users/:user_id')
 
     })
   })
+
+//Get user information
+apiRouter.get('/me', function(req, res) {
+  res.send(req.decoded);
+})
 
 
 

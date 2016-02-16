@@ -21,13 +21,22 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('QuestionsCtrl', function() {
+.controller('QuestionsCtrl', function($http) {
   var vm = this;
   //You want to $push results of the individual's questions into their .priorities.
   //Your logic for tabulating various priorities will go here.
   //start with price.
-  console.log('In the questions controller');
 
+ //for ...4 iterations, through the question html pages
+  // vm.pushChoice = function() {
+  //   console.log("In the push choice function");
+  //   $http.put('http://localhost:8080/users/', vm.choice)
+  //   .success(function(data) {
+  //     vm.choice = '';
+  //     console.log("You pushed the choice to user");
+  //     $state.go('questions');
+  //   })
+  // }
   //You're going to want to make an $http PUT
   //request to users/:user_id.
 
@@ -53,23 +62,24 @@ angular.module('starter.controllers', [])
     var locationArr = citystate.split(',');
     var city = locationArr[0];
     var state = locationArr[1];
-    console.log(city);
-    console.log(state);
     //(3.) We make POST request to our node route
     //to pass it the city and state. Try just passing 1 param = citystate
     $http.post('http://localhost:8080/api/external', {city: city, state: state})
-    .success(function(){
-      console.log("The data made it!");
+    .success(function(data){
+      console.log(data);
+      //apiRouter.makeCall();
     })
     .error(function() {
       console.log("Error, your data didn't make it to Node");
     })
-
-    };
-    //The Node route/server will then have a route & function
+    //(4.)The Node route/server will then have a route & function
     //taking care of the Zillow API call. It will get the results,
     //and res.send it back to this controller.
-    //the results can then be viewed on the front end.
+    //(5.)the results can then be viewed on the front end.
+
+
+    };
+
 
 
 

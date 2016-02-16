@@ -12,10 +12,10 @@
     <div class="item item-divider">
       Please pick one:
       <ion-list>
-        <ion-radio ng-model="choice" ng-value="250000">Less than $250,000</ion-radio>
-        <ion-radio ng-model="choice" ng-value="500000">$250,000-500,000</ion-radio>
-        <ion-radio ng-model="choice" ng-value="750000">$500,000-750,000</ion-radio>
-        <ion-radio ng-model="choice" ng-value="10000000">More than $750,000</ion-radio>
+        <ion-radio ng-model="question.choice" ng-value="250000">Less than $250,000</ion-radio>
+        <ion-radio ng-model="question.choice" ng-value="500000">$250,000-500,000</ion-radio>
+        <ion-radio ng-model="question.choice" ng-value="750000">$500,000-750,000</ion-radio>
+        <ion-radio ng-model="question.choice" ng-value="10000000">More than $750,000</ion-radio>
         </ion-list>
     </div>
     <a href = "#/question2" class="button button-positive" style="width: 100%; margin: 20px 0" ng-click="question.pushChoice()">Next Question</a>

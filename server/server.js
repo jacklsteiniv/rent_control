@@ -214,19 +214,21 @@ apiRouter.get('/me', function(req, res) {
   res.send(req.decoded);
 })
 
-//Make an aPI call to Zillow.
+//Make an aPI call to Zillow. Handle a post(so, get)
 apiRouter.all('/external', function(req, res) {
   //insert the city and state you got from Angular front-end
   //into the API call to Zillow.
-  console.log("Now inside the API router.")
-  API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
-  res.json({message: "This is the route that you send Angular data to"})
-  $http.get('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state='+state+'&city='+city+'&childtype=neighborhood').then(function(err, hood) {
-    if(err) console.log(err);
-    console.log("You made the call, now res.send back to client.")
-    //res.send {response} here back to Angular.
-    console.log(hood); //just log the data you get.
-  });
+    //apiRouter.makeCall = function() {
+      API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
+      console.log(req.params);
+      res.json({message: "In Node, going to make API call to Zillow."}) //this is data.
+      $http.get('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state=WA&city=Seattle&childtype=neighborhood').then(function(err, hood) {
+        if(err) console.log(err);
+        console.log("You made the call, now res.send back to client.")
+        console.log(hood);
+        res.json(hood); //send hood back to Angular.
+      });
+    //}
 })
 
 

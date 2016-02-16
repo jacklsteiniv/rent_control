@@ -7,6 +7,13 @@ var cors = require('cors'); //cors middleware
 var app = express();
 app.use(cors());
 
+//Angoose
+/** Angoose bootstraping */
+// require('angoose').init(app, {
+//    'module-dirs':'/models',
+//    'mongo-opts': 'localhost:27017/rentcontrol',
+// });
+
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');

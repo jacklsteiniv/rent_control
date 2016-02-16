@@ -52,7 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'SearchCtrl'
+        //controller: 'SearchCtrl'
       }
     }
   })
@@ -86,6 +86,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
+  //END nested tabs.
+
   //Login
   $stateProvider
   .state('signin', {
@@ -100,11 +102,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   //Search page state below = tab.search.
-  .state('search', {
-    url: '/search',
-    templateUrl: 'templates/search.html',
-    controller: 'SearchCtrl' //make SearchCtrl
-  });
+
+  .state('questions', {
+    url: '/questions',
+    templateUrl: 'templates/questions.html',
+  })
+
+   //question states - nested (4 different ones)
+   .state('question1', {
+    url: '/question1',
+    templateUrl: 'templates/question1.html',
+   })
+
 
 
   //results page below (hard-seed w/ data, ng-repeat.)

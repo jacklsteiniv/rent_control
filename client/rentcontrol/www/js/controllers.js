@@ -1,26 +1,33 @@
 angular.module('starter.controllers', [])
 
+
 .controller('MainCtrl', function($location, Auth){
 
 })
 
-.controller('CreateUserCtrl', function(User) {
+.controller('CreateUserCtrl', function($http, $state) {
   var vm = this;
 
-  vm.saveUser = function() {
+  //make an $http POST request to users.
 
-    User.create(vm.userData)
-      .success(function(data) {
+  vm.saveUser = function() {
+    $http.post('http://localhost:8080/api/users', vm.userData)
+    .success(function(data) {
         vm.userData = {};
         console.log("You signed up!")
-        $window.location.href = '#/search'
-
+        $state.go('questions');
+    //User.create(vm.userData)
     });
   }
 })
 
 .controller('SearchCtrl', function() {
   var vm = this;
+})
+
+.controller('QuestionsCtrl', function() {
+  var vm = this;
+  //You want to $push results of the individual's questions into their .priorities.
 
 })
 
@@ -51,14 +58,14 @@ angular.module('starter.controllers', [])
     Auth.login(vm.loginData.email, vm.loginData.password)
       .success(function(data) {
         console.log("Successfully logged you in");
-        $state.go('search');
+        $state.go('questions');
         console.log(data);
 
-        //take logged-in user to search page.
-        if(data.successs)
-          $state.go('tab.dash'); //go to the search state
-        else
-          vm.error = data.message;
+        // //take logged-in user to search page.
+        // if(data.successs)
+        //   $state.go('tab.dash'); //go to the search state
+        // else
+        //   vm.error = data.message;
       });
   };
 

@@ -2,14 +2,15 @@
 //adding dotenv up at the top
 var dotenv = require('dotenv');
 dotenv.load();
-API_KEY = 'X1-ZWz19uqcii2ozv_1zmzq';
-
 //packages
 var express = require('express');
 var cors = require('cors'); //cors middleware
 
 var app = express();
 app.use(cors());
+
+//Request module for back-end API calls in Node
+var request = require('request');
 
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
@@ -222,13 +223,14 @@ apiRouter.all('/external', function(req, res) {
       API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
       console.log(req.params);
       res.json({message: "In Node, going to make API call to Zillow."}) //this is data.
-      $http.get('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state=WA&city=Seattle&childtype=neighborhood').then(function(err, hood) {
-        if(err) console.log(err);
-        console.log("You made the call, now res.send back to client.")
-        console.log(hood);
-        res.json(hood); //send hood back to Angular.
+      //use request module to access Zillow API
+      rp('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state=WA&city=Seattle&childtype=neighborhood').then(function(location) {
+        console.log(location); //see what you get back
+      }, function(reason) {
+        console.log('failing because of ' + reason);
       });
-    //}
+
+
 })
 
 

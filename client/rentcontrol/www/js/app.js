@@ -52,7 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'CreateUserCtrl'
+        controller: 'SearchCtrl'
       }
     }
   })
@@ -103,7 +103,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   .state('search', {
     url: '/search',
     templateUrl: 'templates/search.html',
-    controller: 'MainCtrl' //make SearchCtrl
+    controller: 'SearchCtrl' //make SearchCtrl
   });
 
 

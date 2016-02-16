@@ -15,11 +15,16 @@ angular.module('starter.controllers', [])
         console.log("You signed up!")
         $window.location.href = '#/search'
 
-      });
+    });
   }
 })
 
-.controller('LoginCtrl', function($location, $rootScope, $window, Auth) {
+.controller('SearchCtrl', function() {
+  var vm = this;
+
+})
+
+.controller('LoginCtrl', function($location, $rootScope, $state, Auth) {
   console.log("Login controller loaded");
   var vm = this;
 
@@ -46,11 +51,12 @@ angular.module('starter.controllers', [])
     Auth.login(vm.loginData.email, vm.loginData.password)
       .success(function(data) {
         console.log("Successfully logged you in");
+        $state.go('search');
         console.log(data);
 
         //take logged-in user to search page.
         if(data.successs)
-          $window.href = "#/search" //go to the search state
+          $state.go('tab.dash'); //go to the search state
         else
           vm.error = data.message;
       });

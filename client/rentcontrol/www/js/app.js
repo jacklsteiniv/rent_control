@@ -1,5 +1,10 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
+//set up API endpoint as a constant
+.constant('ApiEndpoint', {
+  url: 'http://localhost:8080/api'
+})
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -14,6 +19,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
   });
+})
+
+// application configuration to integrate token into requests
+.config(function($httpProvider) {
+
+  // attach our auth interceptor to the http requests
+  $httpProvider.interceptors.push('AuthInterceptor');
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -39,7 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'MainCtrl'
+        controller: 'CreateUserCtrl'
       }
     }
   })
@@ -77,22 +90,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $stateProvider
   .state('signin', {
     url: '/signin',
-    templateUrl: 'templates/login.html',
-    controller: 'MainCtrl'
+    templateUrl: 'templates/login.html'
   })
 
   //Signup
   .state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html',
-    controller: 'MainCtrl'
   })
 
   //Search page state below = tab.search.
   .state('search', {
     url: '/search',
     templateUrl: 'templates/search.html',
-    controller: 'MainCtrl'
+    controller: 'MainCtrl' //make SearchCtrl
   });
 
 

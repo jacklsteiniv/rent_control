@@ -1,13 +1,33 @@
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function($scope, $location, Auth) {
+.controller('MainCtrl', function($location, Auth){
+
+})
+
+.controller('CreateUserCtrl', function(User) {
+  var vm = this;
+
+  vm.saveUser = function() {
+
+    User.create(vm.userData)
+      .success(function(data) {
+        vm.userData = {};
+        console.log("You signed up!")
+        $window.location.href = '#/search'
+
+      });
+  }
+})
+
+.controller('LoginCtrl', function($location, $rootScope, $window, Auth) {
+  console.log("Login controller loaded");
   var vm = this;
 
   //get user info if logged in
   vm.loggedIn = Auth.isLoggedIn();
 
-  //on each HTTP req, check if logged in
-  $scope.$on('$routeChangeStart', function(){
+  // // //on each HTTP req, check if logged in
+  $rootScope.$on('$routeChangeStart', function() {
     vm.loggedIn = Auth.isLoggedIn();
 
 
@@ -20,14 +40,25 @@ angular.module('starter.controllers', [])
 
   //handle login
   vm.doLogin = function() {
+    console.log("doLogin function")
+    vm.error = '';
 
     Auth.login(vm.loginData.email, vm.loginData.password)
       .success(function(data) {
+        console.log("Successfully logged you in");
+        console.log(data);
 
         //take logged-in user to search page.
-        $window.location.href = '#/search'
+        if(data.successs)
+          $window.href = "#/search" //go to the search state
+        else
+          vm.error = data.message;
       });
   };
+
+  vm.printStuff = function() {
+    console.log('hello');
+  }
 })
 
 //this controller handles user creation/auth.

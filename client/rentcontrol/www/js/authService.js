@@ -1,25 +1,28 @@
 angular.module('starter.services', [])
 
+
+
 //log user in, log out, check if logged in.
-.factory('Auth', function($http, $q, AuthToken) {
+.factory('Auth', function($http, $q, ApiEndpoint, AuthToken) {
+
+  console.log('ApiEndpoint', ApiEndpoint) //test api endpoint
 
   var authFactory = {};
 
   //login function
-  authFactory.login = function(username, password) {
+  authFactory.login = function(email, password) {
 
     //promise object for login
-    return $http.post('/api/authenticate', {
-      name: name,
+    return $http.post(ApiEndpoint.url + '/authenticate', { //calling on API Endpoint constant for token.
+      //name: name,
       email: email,
       password: password,
-      zip: zip
+      //zip: zip
     }).success(function(data) {
       AuthToken.setToken(data.token);
-      return data;
+      return data; //token
     });
   };
-
   //log user out = clear token
   authFactory.logout = function() {
     AuthToken.setToken();

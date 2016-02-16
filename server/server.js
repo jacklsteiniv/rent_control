@@ -3,9 +3,10 @@
 //packages
 var express = require('express');
 var cors = require('cors'); //cors middleware
-app.use(cors());
 
 var app = express();
+app.use(cors());
+
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
@@ -57,7 +58,7 @@ apiRouter.post('/authenticate', function(req, res) {
   //find user, select email and password
   User.findOne({
     email: req.body.email
-  }).select('name email password').exec(function(err, user) {
+  }).select('email password').exec(function(err, user) {
 
     if(err) throw err;
 
@@ -68,6 +69,7 @@ apiRouter.post('/authenticate', function(req, res) {
       })
     } else if(user) {
       //if user exists, check for a password match
+        console.log('here')
       var validPassword = user.comparePassword(req.body.password);
       if(!validPassword) {
         res.json({
@@ -80,7 +82,7 @@ apiRouter.post('/authenticate', function(req, res) {
           name: user.name,
           email: user.email
         }, superSecret, {
-          expiresInMinutes: 1440 //24 hour lifespan for token
+          expiresIn: 86400 //24 hour lifespan for token
         });
 
         //return token as JSON

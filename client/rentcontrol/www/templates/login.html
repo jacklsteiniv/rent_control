@@ -1,21 +1,17 @@
-<ion-view view-title="Login">
-  <ion-content class="padding">
-      <form>
-        <ion-list>
-          <label class="item item-input">
-          <span class="input-label">Email</span>
-          <input type="email" placeholder="your@email" ng-model="login.loginData.email">
-          </label>
-          <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" placeholder="At least 6 characters" ng-model="login.loginData.password">
-          </label>
-        </ion-list>
-        <!-- <ion-nav-buttons side="secondary">
-          <a class="button icon-right ion-plus-round" href="#/search"></a>
-        </ion-nav-buttons>
- -->
-        <button class="button button-stable button-block" ng-click="login.doLogin()">Done</button>
-      </form>
+<ion-view title="Login">
+  <ion-content ng-controller="LoginCtrl as login">
+    <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Email</span>
+              <input type="text" ng-model="login.loginData.email">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password" ng-model="login.loginData.password">
+            </label>
+          </div>
+          <div class="padding">
+            <button nav-clear class="button button-block button-positive" ng-click="login.doLogin()">Sign-In</button>
+    </div>
   </ion-content>
 </ion-view>

@@ -11,13 +11,6 @@ var cors = require('cors'); //cors middleware
 var app = express();
 app.use(cors());
 
-//Angoose
-/** Angoose bootstraping */
-// require('angoose').init(app, {
-//    'module-dirs':'/models',
-//    'mongo-opts': 'localhost:27017/rentcontrol',
-// });
-
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
@@ -221,6 +214,19 @@ apiRouter.get('/me', function(req, res) {
   res.send(req.decoded);
 })
 
+//Make an aPI call to Zillow.
+apiRouter.get('/external', function(req, res) {
+  //insert the city and state you got from Angular front-end
+  //into the API call to Zillow.
+  API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
+  res.json({message: "This is the route that you send Angular data to"})
+  $http.get('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state='+state+'&city='+city+'&childtype=neighborhood').then(function(err, hood) {
+    if(err) console.log(err);
+    console.log("You made the call, now res.send back to client.")
+    //res.send {response} here back to Angular.
+    console.log(hood); //just log the data you get.
+  });
+})
 
 
 //listen on port 8080

@@ -8,7 +8,7 @@ angular.module('starter.controllers', [])
 .controller('CreateUserCtrl', function($http, $state) {
   var vm = this;
 
-  //make an $http POST request to users.
+  //make an $http POST request to users api route.
 
   vm.saveUser = function() {
     $http.post('http://localhost:8080/api/users', vm.userData)
@@ -28,44 +28,51 @@ angular.module('starter.controllers', [])
   //start with price.
   console.log('In the questions controller');
 
-
-
-  //http put request to user - update choices?
+  //You're going to want to make an $http PUT
+  //request to users/:user_id.
 
 
   // User.choices['budget'] = choice; //the budget
   // User.update();
 
-  //think about where to define this function.
-  // User.pushChoice
-  // .success
-
 })
 
-.controller('SearchCtrl', function($q, $http) {
+.controller('SearchCtrl', function($q, $http, $scope, ZillowEndpoint) {
   var vm = this;
   API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
+  console.log("the Zillow API url is " + ZillowEndpoint.url);
   //when you hit search, it makes an API call to Zillow.
   //the results are filtered by the user's priorities, and
   //pushed to their 'results' array.
 
   //(1.) Get city+state from input box.
-  vm.getText = function() {
-    console.log("getText function")
+  vm.getHood = function() {
     var citystate = vm.location;
-    console.log(citystate); //should be Portland, OR
-  }
 
   //(2.) chop up city state (.split(',') into city and state.)
+    var locationArr = citystate.split(',');
+    var city = locationArr[0];
+    var state = locationArr[1];
+    console.log(city);
+    console.log(state);
+    //(3.) We make POST request to our node route
+    //to pass it the city and state. Try just passing 1 param = citystate
+    $http.post('http://localhost:8080/api/external', {city: city, state: state})
+    .then(function(response) {
+      if(response.data.success) {
+        console.log("Sucess!");
+      } else {
+        console.log("Your data didn't make it to Node");
+      }
 
-  //(3.) request promise for API call to zillow db.
-  //good
-  //   var promise = $q(function(resolve, reject) {
-  //     $http('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state=or&city=portland&childtype=neighborhood').then(function() {
-  //   console.log("You made the call, now get req.body.")
+    });
+    //The Node route/server will then have a route & function
+    //taking care of the Zillow API call. It will get the results,
+    //and res.send it back to this controller.
+    //the results can then be viewed on the front end.
 
-  //   });
-  // });
+
+    };
 })
 
 .controller('ResultsCtrl', function() {

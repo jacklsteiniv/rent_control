@@ -1,9 +1,20 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
+
 //set up API endpoint as a constant
 .constant('ApiEndpoint', {
   url: 'http://localhost:8080/api'
 })
+
+//now set one up for Zillow
+
+.constant('ZillowEndpoint', {
+  url: 'http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='
+})
+
+// .run(['$http', '$cookies', function($http, $cookies) {
+//   $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+// }])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,13 +32,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
-// application configuration to integrate token into requests
-.config(function($httpProvider) {
+// // application configuration to integrate token into requests
+// .config(function($httpProvider) {
 
-  // attach our auth interceptor to the http requests
+//   // attach our auth interceptor to the http requests
+//   $httpProvider.interceptors.push('AuthInterceptor');
+
+// })
+
+// //CORS access on the client side
+.config(['$httpProvider', function($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
-
-})
+}])
 
 .config(function($stateProvider, $urlRouterProvider) {
 

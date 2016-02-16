@@ -6,7 +6,6 @@ angular.module('starter.services', [])
 .factory('Auth', function($http, $q, ApiEndpoint, AuthToken) {
 
   console.log('ApiEndpoint', ApiEndpoint) //test api endpoint
-
   var authFactory = {};
 
   //login function

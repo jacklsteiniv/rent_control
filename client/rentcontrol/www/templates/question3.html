@@ -1,0 +1,22 @@
+<ion-view view-title="Questions">
+  <ion-content ng-controller="QuestionsCtrl as question" class="padding">
+  <div class="card">
+    <div class="item item-divider">
+      <h1>(3.) Crime</h1>
+    </div>
+    <div class="item item-text-wrap">
+    <!-- Some kind of school icon. -->
+    <icon= "ion-cash">
+      How about crime? Is that a concern of yours?
+    </div>
+    <div class="item item-divider">
+      Please pick one:
+      <ion-list>
+        <ion-radio ng-model="choice" ng-value="true">A safe area is imperative</ion-radio>
+        <ion-radio ng-model="choice" ng-value="false">Eh, I live on the edge.</ion-radio>
+      </ion-list>
+    </div>
+    <a href = "#/question4" class="button button-positive" style="width: 100%; margin: 20px 0">Next Question</a>
+</div>
+  </ion-content>
+</ion-view>

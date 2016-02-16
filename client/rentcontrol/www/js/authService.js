@@ -44,6 +44,8 @@ angular.module('starter.services', [])
       return $q.reject({message: "The user has no access token."});
   };
 
+
+
   return authFactory;
 })
 

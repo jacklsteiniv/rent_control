@@ -1,4 +1,8 @@
 // Back-end (server side.)
+//adding dotenv up at the top
+var dotenv = require('dotenv');
+dotenv.load();
+API_KEY = 'X1-ZWz19uqcii2ozv_1zmzq';
 
 //packages
 var express = require('express');
@@ -17,7 +21,7 @@ app.use(cors());
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-var Promise  = require('request-promise');
+var rp  = require('request-promise');
 var port = 8080;
 //pull in the User schema from Mongo
 var User = require('./app/models/user');

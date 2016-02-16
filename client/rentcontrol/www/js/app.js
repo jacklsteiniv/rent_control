@@ -101,19 +101,41 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     templateUrl: 'templates/signup.html',
   })
 
-  //Search page state below = tab.search.
+// Questions views
 
   .state('questions', {
     url: '/questions',
     templateUrl: 'templates/questions.html',
   })
-
    //question states - nested (4 different ones)
    .state('question1', {
     url: '/question1',
     templateUrl: 'templates/question1.html',
    })
+   .state('question2', {
+    url: '/question2',
+    templateUrl: 'templates/question2.html',
+   })
+   .state('question3', {
+    url: '/question3',
+    templateUrl: 'templates/question3.html',
+   })
+   .state('question4', {
+    url: '/question4',
+    templateUrl: 'templates/question4.html',
+   })
 
+//Searching
+  .state('search', {
+    url: '/search',
+    templateUrl: 'templates/search.html',
+  })
+
+  //Displaying results
+  .state('/results', {
+    url: '/results',
+    templateUrl: 'templates/results.html',
+  })
 
 
   //results page below (hard-seed w/ data, ng-repeat.)

@@ -68,7 +68,7 @@ angular.module('starter.services', [])
     return $http.post('/api/users/', userData);
   }
 
-  //UPDATE a user
+  //UPDATE a user - and their choices@
   userFactory.update = function(id, userData) {
     return $http.put('/api/users' + id, userData);
   }

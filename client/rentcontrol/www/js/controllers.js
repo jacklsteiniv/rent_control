@@ -21,15 +21,61 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('SearchCtrl', function() {
-  var vm = this;
-})
-
 .controller('QuestionsCtrl', function() {
   var vm = this;
   //You want to $push results of the individual's questions into their .priorities.
+  //Your logic for tabulating various priorities will go here.
+  //start with price.
+  console.log('In the questions controller');
+
+
+
+  //http put request to user - update choices?
+
+
+  // User.choices['budget'] = choice; //the budget
+  // User.update();
+
+  //think about where to define this function.
+  // User.pushChoice
+  // .success
 
 })
+
+.controller('SearchCtrl', function($q, $http) {
+  var vm = this;
+  API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
+  //when you hit search, it makes an API call to Zillow.
+  //the results are filtered by the user's priorities, and
+  //pushed to their 'results' array.
+
+  //(1.) Get city+state from input box.
+  vm.getText = function() {
+    console.log("getText function")
+    var citystate = vm.location;
+    console.log(citystate); //should be Portland, OR
+  }
+
+  //(2.) chop up city state (.split(',') into city and state.)
+
+  //(3.) request promise for API call to zillow db.
+  //good
+  //   var promise = $q(function(resolve, reject) {
+  //     $http('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state=or&city=portland&childtype=neighborhood').then(function() {
+  //   console.log("You made the call, now get req.body.")
+
+  //   });
+  // });
+})
+
+.controller('ResultsCtrl', function() {
+  var vm = this;
+  //this will show the top 3 results that fit the criteria
+  //for that user.
+  //NOTE: start with price.
+})
+
+
 
 .controller('LoginCtrl', function($location, $rootScope, $state, Auth) {
   console.log("Login controller loaded");

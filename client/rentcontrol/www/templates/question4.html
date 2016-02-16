@@ -1,0 +1,22 @@
+<ion-view view-title="Questions">
+  <ion-content ng-controller="QuestionsCtrl as question" class="padding">
+  <div class="card">
+    <div class="item item-divider">
+      <h1>(4.) Walkability</h1>
+    </div>
+    <div class="item item-text-wrap">
+    <!-- Some kind of school icon. -->
+    <icon= "ion-cash">
+      Lastly, how about the walkability of your area?
+    </div>
+    <div class="item item-divider">
+      Please pick one:
+      <ion-list>
+        <ion-radio ng-model="choice" ng-value="true">I love walking around</ion-radio>
+        <ion-radio ng-model="choice" ng-value="false">My car = an appendage</ion-radio>
+      </ion-list>
+    </div>
+    <a href = "#/search" class="button button-positive" style="width: 100%; margin: 20px 0">Search for your dream neighborhood</a>
+</div>
+  </ion-content>
+</ion-view>

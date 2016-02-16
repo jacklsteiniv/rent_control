@@ -1,0 +1,15 @@
+<ion-view view-title="Search">
+  <ion-content ng-controller="SearchCtrl as search" class="padding">
+  <h3>Let's find your dream neighborhood.</h3>
+  <p>Type in a city and state or zip code below</p>
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+      <!-- Grab this location and split by comma.
+      This will be the city (,) and state. -->
+        <input type="text" id = "location" ng-model="search.location" placeholder="Los Angeles, CA">
+      </label>
+      <a href = "#/results" class="button button-positive" style="width: 100%; margin: 20px 0"
+      ng-click="search.getText()">Search</a>
+    </div>
+  </ion-content>
+</ion-view>

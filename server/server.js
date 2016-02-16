@@ -215,9 +215,10 @@ apiRouter.get('/me', function(req, res) {
 })
 
 //Make an aPI call to Zillow.
-apiRouter.get('/external', function(req, res) {
+apiRouter.all('/external', function(req, res) {
   //insert the city and state you got from Angular front-end
   //into the API call to Zillow.
+  console.log("Now inside the API router.")
   API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
   res.json({message: "This is the route that you send Angular data to"})
   $http.get('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state='+state+'&city='+city+'&childtype=neighborhood').then(function(err, hood) {

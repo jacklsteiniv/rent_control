@@ -58,21 +58,21 @@ angular.module('starter.controllers', [])
     //(3.) We make POST request to our node route
     //to pass it the city and state. Try just passing 1 param = citystate
     $http.post('http://localhost:8080/api/external', {city: city, state: state})
-    .then(function(response) {
-      if(response.data.success) {
-        console.log("Sucess!");
-      } else {
-        console.log("Your data didn't make it to Node");
-      }
+    .success(function(){
+      console.log("The data made it!");
+    })
+    .error(function() {
+      console.log("Error, your data didn't make it to Node");
+    })
 
-    });
+    };
     //The Node route/server will then have a route & function
     //taking care of the Zillow API call. It will get the results,
     //and res.send it back to this controller.
     //the results can then be viewed on the front end.
 
 
-    };
+
 })
 
 .controller('ResultsCtrl', function() {

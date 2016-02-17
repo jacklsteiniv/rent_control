@@ -89,16 +89,42 @@ angular.module('starter.controllers', [])
           // priceArr.join(', '); //join them together - i.e. 355000CapitolHill.
         }
       }
+      priceArr.sort();
       console.log("The priceArr meeting filter 500000 is " + priceArr);
+
+      //Shuffle for random results.
+      function shuffle(priceArr) {
+        var i = 0;
+        var j = 0;
+        var temp = null;
+        for (var i in priceArr) {
+          j = Math.floor(Math.random() * (i+1)); //get a random index
+          temp = priceArr[i]; //temporarily set the index.
+          priceArr[i] = priceArr[j]; //set i equal to j, the random index.
+          priceArr[j] = temp; //now you get that temporary index.
+        }
+        return priceArr;
+      }
+
+      shuffle(priceArr);
+      console.log("The shuffled priceArr meeting filter 500000 is " + priceArr);
+
+
+      //Consider adding either (1.) image of the city from google or (2.) Google maps embed.
+
       //Appending 1, 2 and 3 neighborhoods to list items.
-      //Pre-sort these based on price.
-      document.getElementById('one').innerHTML = hoodArr[1];
-      document.getElementById('numone').innerHTML = numArr[1];
-      document.getElementById('two').innerHTML = hoodArr[2];
-      document.getElementById('numtwo').innerHTML = numArr[2];
-      document.getElementById('three').innerHTML = hoodArr[3];
-      document.getElementById('numthree').innerHTML = numArr[3];
+      //Split each item into its number (substring 0,6; 6, priceArr[i].length)
+      document.getElementById('numone').innerHTML = priceArr[1].substring(0,6);
+      document.getElementById('one').innerHTML = priceArr[1].substring(6, priceArr[1].length+10);
+      document.getElementById('numtwo').innerHTML = priceArr[2].substring(0,6);
+      document.getElementById('two').innerHTML = priceArr[2].substring(6, priceArr[1].length+10);
+      document.getElementById('numthree').innerHTML = priceArr[3].substring(0,6);
+      document.getElementById('three').innerHTML = priceArr[3].substring(6, priceArr[1].length+10);
+
+      vm.city = locationArr[0];
+      vm.state = locationArr[1];
       document.getElementById('city').innerHTML = locationArr[0];
+     // document.getElementById('state').innerHTML = locationArr[1];
 
 
       //hood.innerHTML = (hoodArr[1], hoodArr[2], hoodArr[3]); //the first hood

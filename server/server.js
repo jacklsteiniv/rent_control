@@ -219,13 +219,17 @@ apiRouter.get('/me', function(req, res) {
 apiRouter.all('/external', function(req, res) {
   //insert the city and state you got from Angular front-end
   //into the API call to Zillow.
-    //apiRouter.makeCall = function() {
       API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
-      console.log(req.params);
+      console.log("Here's req.body.city: "+ req.body.city);
+      console.log("Here's the req.body.state: " + req.body.state);
+      // console.log("Req.params: " + JSON.parse(city));
+      // console.log("Req.body: " + JSON.parse(state));
+      // console.log("The city and state are " + city + " and " + req.params.);
       res.json({message: "In Node, going to make API call to Zillow."}) //this is data.
-      //use request module to access Zillow API
-      rp('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state=WA&city=Seattle&childtype=neighborhood').then(function(location) {
-        console.log(location); //see what you get back
+      //use request promise module (rp) to access Zillow API
+      rp('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state='+req.body.state+'&city='+req.body.city+'&childtype=neighborhood').then(function(location) {
+        console.log("Here's all the Zillow stuff: " + location);
+        res.end(location + '');//see what you get back
       }, function(reason) {
         console.log('failing because of ' + reason);
       });

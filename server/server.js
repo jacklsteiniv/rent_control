@@ -255,7 +255,7 @@ apiRouter.all('/external', function(req, res) {
         console.log("And here is the zindexArr: " + zindexArr);
 
          //send nameArr to angular.
-          res.json({nameArr: nameArr});//see what you get back.
+          res.json({nameArr: nameArr, zindexArr:zindexArr});//see what you get back.
       }, function(reason) {
         console.log('failing because of ' + reason);
       });

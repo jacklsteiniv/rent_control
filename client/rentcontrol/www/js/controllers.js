@@ -24,6 +24,10 @@ angular.module('starter.controllers', [])
 .controller('QuestionsCtrl', function($http) {
   var vm = this;
 
+  vm.pushChoice = function() {
+    var filters = []; //this is where your filters for your search go.
+    filters.push(vm.choice); //get the value
+  }
 
 })
 
@@ -55,62 +59,63 @@ angular.module('starter.controllers', [])
 
     .success(function(response) {
       //response = JSON.stringify(response);
-
+      console.log("The entire response is " +response);
       //Go through the response object you get; push each property into a new arr.
       var hoodArr = [];
       response['nameArr'].forEach(function(hood) {
         hoodArr.push(hood);
       })
       console.log("The hoodArr is " + hoodArr);
+
+      var numArr = [];
+      response['zindexArr'].forEach(function(price) {
+        numArr.push(price);
+      })
+      console.log("The numArr is " + numArr);
       //name the response as a variable to render in angular.
       vm.hoodArr = hoodArr;
-      //Try appending to div on home page. Div id = "hoods"
-      var hoods = document.getElementById('hoods');
-      hoods.innerHTML = hoodArr.join(','); //a bunch of hoods
-      hoods.innerHTML = hoodArr[1]; //the first hood
+
+      //Run through numArr (for var i in...), if the price
+      //is below the threshold (i.e. 500000), push it to new array,
+      //and append the hood at that same index to it. You can split them later.
+
+      var priceArr = [];
+      var filter = 500000 //the max price.
+      for (var i in numArr) {
+        if(numArr[i] <= filter) {
+          numArr[i] += hoodArr[i]; //join the values of hoodArr and numArr at same index together.
+          priceArr.push(numArr[i]);
+          // priceArr.push(hoodArr[i]); //push in the arr at that same index.
+          // priceArr.join(', '); //join them together - i.e. 355000CapitolHill.
+        }
+      }
+      console.log("The priceArr meeting filter 500000 is " + priceArr);
+      //Appending 1, 2 and 3 neighborhoods to list items.
+      //Pre-sort these based on price.
+      document.getElementById('one').innerHTML = hoodArr[1];
+      document.getElementById('numone').innerHTML = numArr[1];
+      document.getElementById('two').innerHTML = hoodArr[2];
+      document.getElementById('numtwo').innerHTML = numArr[2];
+      document.getElementById('three').innerHTML = hoodArr[3];
+      document.getElementById('numthree').innerHTML = numArr[3];
+      document.getElementById('city').innerHTML = locationArr[0];
+
+
+      //hood.innerHTML = (hoodArr[1], hoodArr[2], hoodArr[3]); //the first hood
+
 
     })
     .error(function() {
       console.log("Error, your Zillow data didn't make it back from Node.");
     })
     //That takes care of the post to Node.
-
-
-    //NOTE: may need to do this in the Results Ctrl.
-    // $http.get('http://localhost:8080/api/external')
-    //   .success(function(req, res) {
-    //   console.log("Req.body is " + req.body);
-    //   console.log("Success!")
-    //   console.log("We got some data back from Node: " + res.body);
-    //   vm.nameArr = res.body; //sends to the Angular view.
-    //   //res.end(res);
-    //   })
-    //   .error(function() {
-    //   console.log("Error, your data didn't make it back from Node");
-    //   })
     }
 
 })
 
 .controller('ResultsCtrl', function($http) {
   var vm = this;
-//   //(5.)the results can then be viewed on the front end.
-//     //handle the data from node, render it, with a promise.
 
-//   //this will show the top 3 results that fit the criteria
-//   //for that user.
-//   //NOTE: start with price.
-//   $http.get('http://localhost:8080/api/external')
-//       .success(function(response) {
-//       console.log("Success!")
-//       console.log("We got some data back from Node: " + response);
-//       vm.nameArr = response.data; //sends to the Angular view.
-//       //res.end(res);
-//       })
-//       .error(function() {
-//       console.log("Error, your data didn't make it back from Node");
-//       })
-// })
 
 })
 

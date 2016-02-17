@@ -1,12 +1,16 @@
 <ion-view view-title="Results">
   <ion-content ng-controller="SearchCtrl as search" class="padding">
-  <h3>Here are some neighborhoods:</h3>
+  <h3>Here are some great neighborhoods in <div id="city" style = "display:inline">
+    under your stated budget.
+  </div></h3>
     <!-- Here, you want to ng-repeat the top 3-5 hoods
     that you get from the Zillow API call. -->
     {{vm.hoodArr}}
-    <div id="hoods">
-    See below:
-    </div>
+    <ul id="hoods">
+      <strong><li id="one"></li></strong> -Average Home price: $<div id="numone" style = "display:inline"></div>
+      <li id="two"><strong></strong></li> -Average Home price: $<div id="numtwo" style = "display:inline"></div>
+      <li id="three"><strong></strong></li> -Average Home price: $<div id="numthree" style = "display:inline"></div>
+    </ul>
     <!-- Show the first neighborhood in the array. -->
   </ion-content>
 </ion-view>

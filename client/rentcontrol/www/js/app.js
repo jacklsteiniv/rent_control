@@ -32,13 +32,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
-// // application configuration to integrate token into requests
-// .config(function($httpProvider) {
-
-//   // attach our auth interceptor to the http requests
-//   $httpProvider.interceptors.push('AuthInterceptor');
-
-// })
 
 // //CORS access on the client side
 .config(['$httpProvider', function($httpProvider) {
@@ -141,21 +134,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     templateUrl: 'templates/question4.html',
    })
 
-//Searching
+//Searching using Search controller = req/res to Node, which pings Zillow.
   .state('search', {
     url: '/search',
     templateUrl: 'templates/search.html',
   })
 
-  //Displaying results
+  //Displaying results. Use Search controller = response from Node.
   .state('/results', {
     url: '/results',
     templateUrl: 'templates/results.html',
   })
-
-
-  //results page below (hard-seed w/ data, ng-repeat.)
-  //this will contain data from the Zillow API call
 
   $urlRouterProvider.otherwise('/tab/dash');
 

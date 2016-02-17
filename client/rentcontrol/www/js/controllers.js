@@ -23,26 +23,7 @@ angular.module('starter.controllers', [])
 
 .controller('QuestionsCtrl', function($http) {
   var vm = this;
-  //You want to $push results of the individual's questions into their .priorities.
-  //Your logic for tabulating various priorities will go here.
-  //start with price.
 
- //for ...4 iterations, through the question html pages
-  // vm.pushChoice = function() {
-  //   console.log("In the push choice function");
-  //   $http.put('http://localhost:8080/users/', vm.choice)
-  //   .success(function(data) {
-  //     vm.choice = '';
-  //     console.log("You pushed the choice to user");
-  //     $state.go('questions');
-  //   })
-  // }
-  //You're going to want to make an $http PUT
-  //request to users/:user_id.
-
-
-  // User.choices['budget'] = choice; //the budget
-  // User.update();
 
 })
 
@@ -65,35 +46,62 @@ angular.module('starter.controllers', [])
     //(3.) We make POST request to our node route
     //to pass it the city and state. Try just passing 1 param = citystate
     $http.post('http://localhost:8080/api/external', {city: city, state: state})
-    .success(function(req, res) {
-      vm.nameArr = res.nameArr;
-      console.log("The array is here in Angular, here: " + vm.nameArr); //displaying the nameArr in angular view.
-      //apiRouter.makeCall();
-    })
-    .error(function() {
-      console.log("Error, your data didn't make it to Node");
-    })
     //(4.)The Node route/server will then have a route & function
     //taking care of the Zillow API call. It will get the results,
     //and res.send it back to this controller.
-    //(5.)the results can then be viewed on the front end.
+
+    //(5.)the results can then be viewed on the front end
+    //as the response! See below.
+
+    .success(function(response) {
+      console.log("The stringified response is" + JSON.stringify(response));//THIS IS THE DATA YOU WANT!
+      //i.e. first neighborhood
+      //name the response as a variable to render in angular.
+      vm.nameArr = JSON.stringify(response);
+    })
+    .error(function() {
+      console.log("Error, your Zillow data didn't make it back from Node.");
+    })
+    //That takes care of the post to Node.
 
 
-    };
-
-
-
+    //NOTE: may need to do this in the Results Ctrl.
+    // $http.get('http://localhost:8080/api/external')
+    //   .success(function(req, res) {
+    //   console.log("Req.body is " + req.body);
+    //   console.log("Success!")
+    //   console.log("We got some data back from Node: " + res.body);
+    //   vm.nameArr = res.body; //sends to the Angular view.
+    //   //res.end(res);
+    //   })
+    //   .error(function() {
+    //   console.log("Error, your data didn't make it back from Node");
+    //   })
+    }
 
 })
 
-.controller('ResultsCtrl', function() {
+.controller('ResultsCtrl', function($http) {
   var vm = this;
-  //this will show the top 3 results that fit the criteria
-  //for that user.
-  //NOTE: start with price.
+//   //(5.)the results can then be viewed on the front end.
+//     //handle the data from node, render it, with a promise.
+
+//   //this will show the top 3 results that fit the criteria
+//   //for that user.
+//   //NOTE: start with price.
+//   $http.get('http://localhost:8080/api/external')
+//       .success(function(response) {
+//       console.log("Success!")
+//       console.log("We got some data back from Node: " + response);
+//       vm.nameArr = response.data; //sends to the Angular view.
+//       //res.end(res);
+//       })
+//       .error(function() {
+//       console.log("Error, your data didn't make it back from Node");
+//       })
+// })
+
 })
-
-
 
 .controller('LoginCtrl', function($location, $rootScope, $state, Auth) {
   console.log("Login controller loaded");

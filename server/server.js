@@ -222,7 +222,7 @@ apiRouter.all('/external', function(req, res) {
       API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
       console.log("Here's req.body.city: "+ req.body.city);
       console.log("Here's the req.body.state: " + req.body.state);
-      res.json({message: "In Node, going to make API call to Zillow."}) //this is data.
+      // res.json({message: "In Node, going to make API call to Zillow."}) //this is data.
       //use request promise module (rp) to access Zillow API
       rp('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state='+req.body.state+'&city='+req.body.city+'&childtype=neighborhood').then(function(data) {
         //console.log("Here's all the Zillow stuff: " + data);
@@ -235,11 +235,9 @@ apiRouter.all('/external', function(req, res) {
         //this is the second half of XML after <count>.
         var stopIndex = data.indexOf('</count>'); //get the number in front of ths;
         var count = data.substring(0,stopIndex); //this is the number of items.
-        console.log("The total length is " + data.length);
 
         //Split data up by <name> 0- just get all the names.
         var newArr = data.split('<name>');
-        console.log("The newArr is " + newArr);
         for(var i = 0; i < newArr.length; i++) {
           var index1 = newArr[i].indexOf('<');
           var name = newArr[i].substring(0, index1);
@@ -255,8 +253,11 @@ apiRouter.all('/external', function(req, res) {
           zindexArr.push(num);
         }
         console.log("And here is the zindexArr: " + zindexArr);
+
          //send nameArr to angular.
-          res.end('{nameArr: nameArr}');//see what you get back
+         console.log(nameArr)
+          res.json({nameArr: nameArr});//see what you get back.
+          //res.end(''); //resolve promise.
       }, function(reason) {
         console.log('failing because of ' + reason);
       });

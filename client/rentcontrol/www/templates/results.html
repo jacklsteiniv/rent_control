@@ -1,8 +1,9 @@
 <ion-view view-title="Results">
-  <ion-content ng-controller="ResultsCtrl as results" class="padding">
+  <ion-content ng-controller="SearchCtrl as search" class="padding">
   <h3>Here are some neighborhoods:</h3>
     <!-- Here, you want to ng-repeat the top 3-5 hoods
     that you get from the Zillow API call. -->
-    <ng-show="vm.nameArr">
+    {{search.vm.nameArr}}
+    <!-- Show the first neighborhood in the array. -->
   </ion-content>
 </ion-view>

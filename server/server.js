@@ -246,10 +246,17 @@ apiRouter.all('/external', function(req, res) {
           nameArr.push(name);
         }
         console.log("Here's the nameArr: " + nameArr); //gets the results
-        //you're using this to iterate through the results of the array you push to.
-        //console.log("Updated first split xml data: " + data);
-        //Now, split data at the
-        res.end(data + '');//see what you get back
+
+        //Do the same for the zindexArr.
+        var numArr = data.split('<zindex currency="USD">');
+        for(var j = 0; j< numArr.length; j++) {
+          var index1 = numArr[j].indexOf('<');
+          var num = numArr[j].substring(0, index1);
+          zindexArr.push(num);
+        }
+        console.log("And here is the zindexArr: " + zindexArr);
+         //send nameArr to angular.
+          res.end('{nameArr: nameArr}');//see what you get back
       }, function(reason) {
         console.log('failing because of ' + reason);
       });

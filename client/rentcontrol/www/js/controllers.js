@@ -65,8 +65,9 @@ angular.module('starter.controllers', [])
     //(3.) We make POST request to our node route
     //to pass it the city and state. Try just passing 1 param = citystate
     $http.post('http://localhost:8080/api/external', {city: city, state: state})
-    .success(function(data){
-      console.log(data);
+    .success(function(req, res) {
+      vm.nameArr = res.nameArr;
+      console.log("The array is here in Angular, here: " + vm.nameArr); //displaying the nameArr in angular view.
       //apiRouter.makeCall();
     })
     .error(function() {

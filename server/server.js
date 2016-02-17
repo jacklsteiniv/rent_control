@@ -222,14 +222,34 @@ apiRouter.all('/external', function(req, res) {
       API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
       console.log("Here's req.body.city: "+ req.body.city);
       console.log("Here's the req.body.state: " + req.body.state);
-      // console.log("Req.params: " + JSON.parse(city));
-      // console.log("Req.body: " + JSON.parse(state));
-      // console.log("The city and state are " + city + " and " + req.params.);
       res.json({message: "In Node, going to make API call to Zillow."}) //this is data.
       //use request promise module (rp) to access Zillow API
-      rp('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state='+req.body.state+'&city='+req.body.city+'&childtype=neighborhood').then(function(location) {
-        console.log("Here's all the Zillow stuff: " + location);
-        res.end(location + '');//see what you get back
+      rp('http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='+ API_KEY+'&state='+req.body.state+'&city='+req.body.city+'&childtype=neighborhood').then(function(data) {
+        //console.log("Here's all the Zillow stuff: " + data);
+
+        //(4.) Manipulate the xML data:
+        //split at <childtype>
+        var nameArr = []; //you're going to push names here.
+        var zindexArr = []; //you're going to push zindex values here.
+        data = data.split('<count>')[1]; //all data pertaining to neighborhoods.
+        //this is the second half of XML after <count>.
+        var stopIndex = data.indexOf('</count>'); //get the number in front of ths;
+        var count = data.substring(0,stopIndex); //this is the number of items.
+        console.log("The total length is " + data.length);
+
+        //Split data up by <name> 0- just get all the names.
+        var newArr = data.split('<name>');
+        console.log("The newArr is " + newArr);
+        for(var i = 0; i < newArr.length; i++) {
+          var index1 = newArr[i].indexOf('<');
+          var name = newArr[i].substring(0, index1);
+          nameArr.push(name);
+        }
+        console.log("Here's the nameArr: " + nameArr); //gets the results
+        //you're using this to iterate through the results of the array you push to.
+        //console.log("Updated first split xml data: " + data);
+        //Now, split data at the
+        res.end(data + '');//see what you get back
       }, function(reason) {
         console.log('failing because of ' + reason);
       });

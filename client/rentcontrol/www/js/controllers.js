@@ -54,10 +54,21 @@ angular.module('starter.controllers', [])
     //as the response! See below.
 
     .success(function(response) {
-      console.log("The stringified response is" + JSON.stringify(response));//THIS IS THE DATA YOU WANT!
-      //i.e. first neighborhood
+      //response = JSON.stringify(response);
+
+      //Go through the response object you get; push each property into a new arr.
+      var hoodArr = [];
+      response['nameArr'].forEach(function(hood) {
+        hoodArr.push(hood);
+      })
+      console.log("The hoodArr is " + hoodArr);
       //name the response as a variable to render in angular.
-      vm.nameArr = JSON.stringify(response);
+      vm.hoodArr = hoodArr;
+      //Try appending to div on home page. Div id = "hoods"
+      var hoods = document.getElementById('hoods');
+      hoods.innerHTML = hoodArr.join(','); //a bunch of hoods
+      hoods.innerHTML = hoodArr[1]; //the first hood
+
     })
     .error(function() {
       console.log("Error, your Zillow data didn't make it back from Node.");

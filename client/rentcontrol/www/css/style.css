@@ -1,1 +1,27 @@
 /* Empty. Add your own CSS if you like */
+ion-content {
+  color: #8A6DE9;
+  background-color: #e3e3e3;
+}
+
+ion-nav-bar {
+  background-color: #6ed3cf
+}
+
+.title {
+  background-color: #6ed3cf;
+}
+
+.icon {
+  color: #6ed3cf;
+}
+/*
+h1 {
+  color: #6ed3cf
+}
+h2 {
+  color: #6ed3cf;
+}
+h3 {
+  color: #6ed3cf;
+}*/

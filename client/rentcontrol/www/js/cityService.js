@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('City', function() { //this is where you store city & state to pass from SearchCtrl --> ResultsCtrl.
+.factory('Cities', function() { //this is where you store city & state to pass from SearchCtrl --> ResultsCtrl.
 
   var cityFactory = {};
   var list = [];
@@ -10,5 +10,5 @@ angular.module('starter.services', [])
   }
 
   return cityFactory; //make city and state available.
-})
+});
 

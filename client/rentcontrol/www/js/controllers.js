@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services']) //services
 
 
 .controller('MainCtrl', function($location, Auth){
@@ -31,7 +31,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SearchCtrl', function($q, $http, $scope, ZillowEndpoint) {
+.controller('SearchCtrl', function($http, $scope, Cities, ZillowEndpoint) {
   var vm = this;
   API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
   console.log("the Zillow API url is " + ZillowEndpoint.url);
@@ -41,6 +41,8 @@ angular.module('starter.controllers', [])
 
   //(1.) Get city+state from input box.
   vm.getHood = function() {
+    //$scope.Cities = Cities.all();
+
     var citystate = vm.location;
 
   //(2.) chop up city state (.split(',') into city and state.)
@@ -58,8 +60,14 @@ angular.module('starter.controllers', [])
     //as the response! See below.
 
     .success(function(response) {
+
+    //SAVING TO FACTORY (for Results use -> dynamic display.)
+    //Here we push that citystate into the cityFactory. ResultsCtrl will use this.
+
+    vm.cityFactory.add(citystate);
+    console.log("The cityFactory currently is " + cityFactory);
+
       //response = JSON.stringify(response);
-      console.log("The entire response is " +response);
       //Go through the response object you get; push each property into a new arr.
       var hoodArr = [];
       response['nameArr'].forEach(function(hood) {
@@ -110,8 +118,6 @@ angular.module('starter.controllers', [])
       console.log("The shuffled priceArr meeting filter 500000 is " + priceArr);
 
 
-      //Consider adding either (1.) image of the city from google or (2.) Google maps embed.
-
       //Appending 1, 2 and 3 neighborhoods to list items.
       //Split each item into its number (substring 0,6; 6, priceArr[i].length)
       document.getElementById('numone').innerHTML = priceArr[1].substring(0,6);
@@ -124,11 +130,6 @@ angular.module('starter.controllers', [])
       vm.city = locationArr[0];
       vm.state = locationArr[1];
       document.getElementById('city').innerHTML = locationArr[0];
-     // document.getElementById('state').innerHTML = locationArr[1];
-
-
-      //hood.innerHTML = (hoodArr[1], hoodArr[2], hoodArr[3]); //the first hood
-
 
     })
     .error(function() {
@@ -142,6 +143,7 @@ angular.module('starter.controllers', [])
 .controller('ResultsCtrl', function($http) {
   var vm = this;
 
+  //Below, set vm. city and vm.state, based on the cityFactory contents.
 
 })
 
@@ -175,17 +177,24 @@ angular.module('starter.controllers', [])
         $state.go('questions');
         console.log(data);
 
-        // //take logged-in user to search page.
-        // if(data.successs)
-        //   $state.go('tab.dash'); //go to the search state
+        // // //take logged-in user to search page.
+        if(data.success)
+          console.log(data);
+          $state.go('questions'); //go to the search state
         // else
         //   vm.error = data.message;
+        //   $state.go('signin');
+      // .error(function() {
+      //   vm.error = data.message;
+      //   $state.go('signin');
       });
-  };
+  //};
 
   vm.printStuff = function() {
     console.log('hello');
   }
+
+  };
 })
 
 //this controller handles user creation/auth.

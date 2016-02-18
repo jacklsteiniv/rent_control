@@ -8,8 +8,19 @@
       This will be the city (,) and state. -->
         <input type="text" id = "location" ng-model="search.location" placeholder="Los Angeles, CA">
       </label>
-      <a href = "#/results" class="button button-royal" style="width: 100%; margin: 20px 0"
+      <button class="button button-royal" style="width: 100%; margin: 20px 0"
       ng-click="search.getHood()">Search</a>
     </div>
+
+<!-- Try single-page search. Results below. -->
+  <div id="locale">
+  </div>
+    <!-- Google Maps iFrame for city. -->
+    <iframe id ="map"src="https://www.google.com/maps/embed/v1/place?q=LosAngeles,CA&key=AIzaSyC448ZcgKl06FhNnLfo612YzbE6PCltOcw">
+    </iframe>
+      <strong><li id="one"></li></strong> -Average Home price: $<div id="numone" style = "display:inline"></div>
+      <strong><li id="two"></li></strong> -Average Home price: $<div id="numtwo" style = "display:inline"></div>
+      <strong><li id="three"></li></strong> -Average Home price: $<div id="numthree" style = "display:inline"></div>
+    </ul>
   </ion-content>
 </ion-view>

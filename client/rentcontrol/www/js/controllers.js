@@ -31,7 +31,7 @@ angular.module('starter.controllers', ['starter.services']) //services
 
 })
 
-.controller('SearchCtrl', function($http, $scope, Cities, ZillowEndpoint) {
+.controller('SearchCtrl', function($http, $scope, Cities, Prices, ZillowEndpoint) {
   var vm = this;
   API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
   console.log("the Zillow API url is " + ZillowEndpoint.url);
@@ -93,6 +93,8 @@ angular.module('starter.controllers', ['starter.services']) //services
       }
       priceArr.sort();
       console.log("The priceArr meeting filter 500000 is " + priceArr);
+      //Splice out the first element (just a number, invalid)
+      priceArr.splice(0,1);
 
       //Shuffle for random results.
       function shuffle(priceArr) {
@@ -111,18 +113,20 @@ angular.module('starter.controllers', ['starter.services']) //services
       shuffle(priceArr);
       console.log("The shuffled priceArr meeting filter 500000 is " + priceArr);
 
+      //PROMISE
+      //Set up a promise below: You want this to finish before ResultsCtrl starts.
+      //var dataPromise = function() {
 
-      //Appending 1, 2 and 3 neighborhoods to list items.
-      //Split each item into its number (substring 0,6; 6, priceArr[i].length)
-      // document.getElementById('numone').innerHTML = priceArr[1].substring(0,6);
-      // document.getElementById('one').innerHTML = priceArr[1].substring(6, priceArr[1].length+10);
-      // document.getElementById('numtwo').innerHTML = priceArr[2].substring(0,6);
-      // document.getElementById('two').innerHTML = priceArr[2].substring(6, priceArr[1].length+10);
-      // document.getElementById('numthree').innerHTML = priceArr[3].substring(0,6);
-      // document.getElementById('three').innerHTML = priceArr[3].substring(6, priceArr[1].length+10);
+      //You're going to want to send the priceArr to the service.
+      vm.prices = Prices.all();
+      console.log("Here's an empty vm.prices: " + vm.prices);
+      vm.prices.add(priceArr[0]); //push the first three components of priceArr into the price factory.
+      vm.prices.add(priceArr[1]);
+      vm.prices.add(priceArr[2]);
+      console.log("And here is the priceArr factory with three contents: " + vm.prices);
 
-      vm.city = locationArr[0];
-      vm.state = locationArr[1];
+      vm.city = locationArr[0]; //the city
+      vm.state = locationArr[1]; //the state
 
       //SAVING TO FACTORY (for Results use -> dynamic display.)
       //Here we push that citystate into the cityFactory. ResultsCtrl will use this.
@@ -132,10 +136,28 @@ angular.module('starter.controllers', ['starter.services']) //services
       vm.cities.add(vm.state)
       console.log("And here is $scope.cities with citystate inside: " + vm.cities);
 
-      //NOTE: city and state show up above.
+      //And for the Prices factory
+       vm.prices = Prices.all();
+        console.log("The prices array in Results is " + vm.prices);
+        vm.price1 = vm.prices[0];
+        vm.price2 = vm.prices[1];
+        vm.price3 = vm.prices[2];
 
-      // document.getElementById('city').innerHTML = locationArr[0];
+        // Appending 1, 2 and 3 neighborhoods to list items.
+        // Split each item into its number (substring 0,6; 6, priceArr[i].length)
+        document.getElementById('numone').innerHTML = vm.price1.substring(0,6);
+        document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length+10);
+        document.getElementById('numtwo').innerHTML = vm.price2.substring(0,6);
+        document.getElementById('two').innerHTML = vm.price2.substring(6, vm.price2.length+10);
+        document.getElementById('numthree').innerHTML = vm.price3.substring(0,6);
+        document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length+10);
+        document.getElementById('locale').innerHTML = "<h3>Here are some great neighborhoods under your stated budget.</h3>";
 
+
+        //Google maps url. Need to inject $sce to trust it as a URL.
+        //$scope.currentProjectUrl = $sce.trustAsResourceUrl($scope.currentProject.url)
+
+        // document.getElementById('map').innerHTML = "https://www.google.com/maps/embed/v1/place?q=LosAngeles,CA&key=AIzaSyC448ZcgKl06FhNnLfo612YzbE6PCltOcw"
     })
     .error(function() {
       console.log("Error, your Zillow data didn't make it back from Node.");
@@ -145,15 +167,25 @@ angular.module('starter.controllers', ['starter.services']) //services
 
 })
 
-.controller('ResultsCtrl', function($http, Cities) {
+.controller('ResultsCtrl', function($http, Cities, Prices) {
   var vm = this;
 
-  //Set variables for contents of the cityFactory.
-  vm.cities = Cities.all();
-  console.log("Here is the Results cities: " + vm.cities);
-  vm.city = vm.cities[0];
-  vm.state = vm.cities[1];
-  vm.citystate = JSON.stringify(Cities.all());
+  //Note: everything executes asynchronously. This will fire off as the Search Ctrl
+  //is being executed. Therefore, run everything single-page from Search Ctrl.
+
+    // //Set variables for contents of the cityFactory.
+    // vm.cities = Cities.all();
+    // console.log("The cities array in Results is "+ vm.cities);
+    // vm.city = vm.cities[0];
+    // vm.state = vm.cities[1];
+    // vm.citystate = JSON.stringify(Cities.all());
+
+    // //And for the Prices factory
+    // vm.prices = Prices.all();
+    // console.log("The prices array in Results is " + vm.prices);
+    // vm.price1 = vm.prices[0];
+    // vm.price2 = vm.prices[1];
+    // vm.price3 = vm.prices[2];
 
 })
 
@@ -207,19 +239,7 @@ angular.module('starter.controllers', ['starter.services']) //services
   //};
   };
 
-  vm.printStuff = function() {
-    console.log('hello');
-  }
-
-
 })
-
-//this controller handles user creation/auth.
-
-// .controller('UserCtrl', function($scope, User) {
-//   var vm = this;
-// })
-
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called

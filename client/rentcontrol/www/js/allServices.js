@@ -184,7 +184,6 @@ angular.module('starter.services', [])
 .factory('Cities', function() { //this is where you store city & state to pass from SearchCtrl --> ResultsCtrl.
 
   var cityFactory = [];
-  var list = [];
 
   cityFactory.add = function(city) {
     cityFactory.push(city); //here they are
@@ -192,8 +191,24 @@ angular.module('starter.services', [])
 
   cityFactory.all = function() {
       return cityFactory;
+      cityFactory = [];
   }
 
   return cityFactory; //make city and state available.
+})
+
+.factory('Prices', function() { //this is where you store the shuffled priceArr to pass from SearchCtrl --> ResultsCtrl.
+
+  var priceFactory = [];
+
+  priceFactory.add = function(priceArr) {
+    priceFactory.push(priceArr); //here they are
+  }
+
+  priceFactory.all = function() {
+      return priceFactory;
+  }
+
+  return priceFactory; //make priceArr available.
 })
 

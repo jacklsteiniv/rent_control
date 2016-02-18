@@ -61,12 +61,6 @@ angular.module('starter.controllers', ['starter.services']) //services
 
     .success(function(response) {
 
-    //SAVING TO FACTORY (for Results use -> dynamic display.)
-    //Here we push that citystate into the cityFactory. ResultsCtrl will use this.
-
-    vm.cityFactory.add(citystate);
-    console.log("The cityFactory currently is " + cityFactory);
-
       //response = JSON.stringify(response);
       //Go through the response object you get; push each property into a new arr.
       var hoodArr = [];
@@ -129,6 +123,16 @@ angular.module('starter.controllers', ['starter.services']) //services
 
       vm.city = locationArr[0];
       vm.state = locationArr[1];
+
+      //SAVING TO FACTORY (for Results use -> dynamic display.)
+      //Here we push that citystate into the cityFactory. ResultsCtrl will use this.
+      vm.cities = Cities.all();
+      console.log("Here is an empty $scope.cities: " + vm.cities);
+      vm.cities.add(vm.city);
+      vm.cities.add(vm.state)
+      console.log("And here is $scope.cities with citystate inside: " + vm.cities);
+
+
       document.getElementById('city').innerHTML = locationArr[0];
 
     })

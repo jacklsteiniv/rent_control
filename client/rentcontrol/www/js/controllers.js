@@ -114,12 +114,12 @@ angular.module('starter.controllers', ['starter.services']) //services
 
       //Appending 1, 2 and 3 neighborhoods to list items.
       //Split each item into its number (substring 0,6; 6, priceArr[i].length)
-      document.getElementById('numone').innerHTML = priceArr[1].substring(0,6);
-      document.getElementById('one').innerHTML = priceArr[1].substring(6, priceArr[1].length+10);
-      document.getElementById('numtwo').innerHTML = priceArr[2].substring(0,6);
-      document.getElementById('two').innerHTML = priceArr[2].substring(6, priceArr[1].length+10);
-      document.getElementById('numthree').innerHTML = priceArr[3].substring(0,6);
-      document.getElementById('three').innerHTML = priceArr[3].substring(6, priceArr[1].length+10);
+      // document.getElementById('numone').innerHTML = priceArr[1].substring(0,6);
+      // document.getElementById('one').innerHTML = priceArr[1].substring(6, priceArr[1].length+10);
+      // document.getElementById('numtwo').innerHTML = priceArr[2].substring(0,6);
+      // document.getElementById('two').innerHTML = priceArr[2].substring(6, priceArr[1].length+10);
+      // document.getElementById('numthree').innerHTML = priceArr[3].substring(0,6);
+      // document.getElementById('three').innerHTML = priceArr[3].substring(6, priceArr[1].length+10);
 
       vm.city = locationArr[0];
       vm.state = locationArr[1];
@@ -132,8 +132,9 @@ angular.module('starter.controllers', ['starter.services']) //services
       vm.cities.add(vm.state)
       console.log("And here is $scope.cities with citystate inside: " + vm.cities);
 
+      //NOTE: city and state show up above.
 
-      document.getElementById('city').innerHTML = locationArr[0];
+      // document.getElementById('city').innerHTML = locationArr[0];
 
     })
     .error(function() {
@@ -144,10 +145,15 @@ angular.module('starter.controllers', ['starter.services']) //services
 
 })
 
-.controller('ResultsCtrl', function($http) {
+.controller('ResultsCtrl', function($http, Cities) {
   var vm = this;
 
-  //Below, set vm. city and vm.state, based on the cityFactory contents.
+  //Set variables for contents of the cityFactory.
+  vm.cities = Cities.all();
+  console.log("Here is the Results cities: " + vm.cities);
+  vm.city = vm.cities[0];
+  vm.state = vm.cities[1];
+  vm.citystate = JSON.stringify(Cities.all());
 
 })
 
@@ -177,28 +183,35 @@ angular.module('starter.controllers', ['starter.services']) //services
 
     Auth.login(vm.loginData.email, vm.loginData.password)
       .success(function(data) {
-        console.log("Successfully logged you in");
-        $state.go('questions');
-        console.log(data);
+
+
+        // console.log("Successfully logged you in");
+        // $state.go('questions');
+        // console.log(data);
 
         // // //take logged-in user to search page.
-        if(data.success)
+        if(data.success) {
+
           console.log(data);
-          $state.go('questions'); //go to the search state
-        // else
-        //   vm.error = data.message;
-        //   $state.go('signin');
+          $state.go('questions');
+        } //go to the search state
+        else {
+          vm.error = data.message;
+          $state.go('signin');
+        }
+       });
       // .error(function() {
       //   vm.error = data.message;
       //   $state.go('signin');
-      });
+
   //};
+  };
 
   vm.printStuff = function() {
     console.log('hello');
   }
 
-  };
+
 })
 
 //this controller handles user creation/auth.

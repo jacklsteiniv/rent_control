@@ -2,6 +2,8 @@
 
 Find the neighborhood that's right for you.
 
+![alt tag]https://cloud.githubusercontent.com/assets/15351814/13165743/64712ebe-d675-11e5-91b1-468fe60c6f9b.png
+
 ##Summary
 
 In each city I've lived in, I have wished that there were a way to more easily gain information on what the various neighborhoods are like (from a cost standpoint, among other things.) Therefore, I set out to build an app that would help people get an idea of the various neighborhoods for different cities, based on their budget. I know that such information can be useful when on the go; for that reason, I developed Rent Control to be a mobile application.
@@ -28,7 +30,7 @@ The application can be served locally using 'ionic serve --lab' on port 8100, to
 
 ##Hurdles/Challenges/Next Steps
 
-One hurdle was gathering relevant data from the Zillow API, which was returned in XML format. I circumvented this by using various .substring and .split methods to retrieve only the necessary location information.
+One hurdle was parsing relevant data from the Zillow API, which was returned in XML format. I circumvented this by using various .substring and .split methods to retrieve only the necessary location information.
 
 Another challenge I faced was using Services and Controllers in Angular to pass relevant information pertaining to the API calls back and forth; I eventually simplified this by using one controller for searching a location and displaying the results. I think this lends itself well to the mobile user experience.
 

@@ -2,7 +2,7 @@
 
 Find the neighborhood that's right for you.
 
-![alt tag]https://cloud.githubusercontent.com/assets/15351814/13165743/64712ebe-d675-11e5-91b1-468fe60c6f9b.png
+![alt tag](https://cloud.githubusercontent.com/assets/15351814/13165743/64712ebe-d675-11e5-91b1-468fe60c6f9b.png)
 
 ##Summary
 

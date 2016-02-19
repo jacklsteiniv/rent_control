@@ -40,9 +40,12 @@ angular.module('starter.controllers', ['starter.services']) //services
   //pushed to their 'results' array.
 
   //(1.) Get city+state from input box.
+
+  var searchCount = -3;
+
   vm.getHood = function() {
     //$scope.Cities = Cities.all();
-
+    searchCount+=3;
     var citystate = vm.location;
 
   //(2.) chop up city state (.split(',') into city and state.)
@@ -80,6 +83,7 @@ angular.module('starter.controllers', ['starter.services']) //services
       //Run through numArr (for var i in...), if the price
       //is below the threshold (i.e. 500000), push it to new array,
       //and append the hood at that same index to it. You can split them later.
+
 
       var priceArr = [];
       var filter = 500000 //the max price.
@@ -139,9 +143,9 @@ angular.module('starter.controllers', ['starter.services']) //services
       //And for the Prices factory
        vm.prices = Prices.all();
         console.log("The prices array in Results is " + vm.prices);
-        vm.price1 = vm.prices[0];
-        vm.price2 = vm.prices[1];
-        vm.price3 = vm.prices[2];
+        vm.price1 = vm.prices[0+searchCount];
+        vm.price2 = vm.prices[1+searchCount];
+        vm.price3 = vm.prices[2+searchCount];
 
         // Appending 1, 2 and 3 neighborhoods to list items.
         // Split each item into its number (substring 0,6; 6, priceArr[i].length)

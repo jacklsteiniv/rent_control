@@ -212,3 +212,18 @@ angular.module('starter.services', [])
   return priceFactory; //make priceArr available.
 })
 
+.factory('Filters', function() { //this is where you store the shuffled priceArr to pass from SearchCtrl --> ResultsCtrl.
+
+  var filterFactory = [];
+
+  filterFactory.add = function(filter) {
+    filterFactory.push(filter); //here they are
+  }
+
+  filterFactory.all = function() {
+      return filterFactory;
+  }
+
+  return filterFactory; //make priceArr available.
+})
+

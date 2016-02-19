@@ -16,22 +16,22 @@ angular.module('starter.controllers', ['starter.services']) //services
         vm.userData = {};
         console.log("You signed up!")
         $state.go('questions');
-    //User.create(vm.userData)
     });
   }
 })
 
-.controller('QuestionsCtrl', function($http) {
+.controller('QuestionsCtrl', function($http, Filters) {
   var vm = this;
 
   vm.pushChoice = function() {
-    var filters = []; //this is where your filters for your search go.
-    filters.push(vm.choice); //get the value
-  }
-
+    var maxbudget = vm.maxbudget;
+    vm.filters = Filters.all();
+    vm.filters.add(maxbudget); //now the filter is available to the SearchCtrl.
+    console.log("Your max budget as stated is " + vm.filters[0]);
+  };
 })
 
-.controller('SearchCtrl', function($http, $scope, Cities, Prices, ZillowEndpoint) {
+.controller('SearchCtrl', function($http, $scope, Cities, Prices, Filters, ZillowEndpoint) {
   var vm = this;
   API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
   console.log("the Zillow API url is " + ZillowEndpoint.url);
@@ -47,6 +47,9 @@ angular.module('starter.controllers', ['starter.services']) //services
     //$scope.Cities = Cities.all();
     searchCount+=3;
     var citystate = vm.location;
+
+    //Get the filter.
+    vm.filters = Filters.all();
 
   //(2.) chop up city state (.split(',') into city and state.)
     var locationArr = citystate.split(',');
@@ -86,7 +89,7 @@ angular.module('starter.controllers', ['starter.services']) //services
 
 
       var priceArr = [];
-      var filter = 500000 //the max price.
+      var filter = vm.filters[0]; //the max price. You get this from the Filters controller.
       for (var i in numArr) {
         if(numArr[i] <= filter) {
           numArr[i] += hoodArr[i]; //join the values of hoodArr and numArr at same index together.
@@ -115,7 +118,7 @@ angular.module('starter.controllers', ['starter.services']) //services
       }
 
       shuffle(priceArr);
-      console.log("The shuffled priceArr meeting filter 500000 is " + priceArr);
+      console.log("The shuffled priceArr meeting filter" + filter + " is " + priceArr);
 
       //PROMISE
       //Set up a promise below: You want this to finish before ResultsCtrl starts.
@@ -150,11 +153,11 @@ angular.module('starter.controllers', ['starter.services']) //services
         // Appending 1, 2 and 3 neighborhoods to list items.
         // Split each item into its number (substring 0,6; 6, priceArr[i].length)
         document.getElementById('numone').innerHTML = vm.price1.substring(0,6);
-        document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length+10);
+        document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length+5);
         document.getElementById('numtwo').innerHTML = vm.price2.substring(0,6);
-        document.getElementById('two').innerHTML = vm.price2.substring(6, vm.price2.length+10);
+        document.getElementById('two').innerHTML = vm.price2.substring(6, vm.price2.length+5);
         document.getElementById('numthree').innerHTML = vm.price3.substring(0,6);
-        document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length+10);
+        document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length+5);
         document.getElementById('locale').innerHTML = "<h3>Here are some great neighborhoods under your stated budget.</h3>";
 
 

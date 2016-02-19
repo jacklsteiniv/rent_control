@@ -153,11 +153,11 @@ angular.module('starter.controllers', ['starter.services']) //services
         // Appending 1, 2 and 3 neighborhoods to list items.
         // Split each item into its number (substring 0,6; 6, priceArr[i].length)
         document.getElementById('numone').innerHTML = vm.price1.substring(0,6);
-        document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length+5);
+        document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length);
         document.getElementById('numtwo').innerHTML = vm.price2.substring(0,6);
-        document.getElementById('two').innerHTML = vm.price2.substring(6, vm.price2.length+5);
+        document.getElementById('two').innerHTML = vm.price2.substring(6, vm.price2.length);
         document.getElementById('numthree').innerHTML = vm.price3.substring(0,6);
-        document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length+5);
+        document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length);
         document.getElementById('locale').innerHTML = "<h3>Here are some great neighborhoods under your stated budget.</h3>";
 
 

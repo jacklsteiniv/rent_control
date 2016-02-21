@@ -3,12 +3,11 @@ angular.module('starter.controllers', ['starter.services']) //services
 //defining host on client side
 // var host = "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com" || "http://localhost"
 
-
 .controller('MainCtrl', function($location, Auth){
 
 })
 
-.controller('CreateUserCtrl', function($http, $state) {
+.controller('CreateUserCtrl', function($http, $state, Host) {
   var vm = this;
 
   //make an $http POST request to users api route.
@@ -34,10 +33,9 @@ angular.module('starter.controllers', ['starter.services']) //services
   };
 })
 
-.controller('SearchCtrl', function($http, $scope, Cities, Prices, Filters) {
+.controller('SearchCtrl', function($http, $scope, Cities, Prices, Filters, Host) {
   var vm = this;
   API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
-  console.log("the Zillow API url is " + ZillowEndpoint.url);
   //when you hit search, it makes an API call to Zillow.
   //the results are filtered by the user's priorities, and
   //pushed to their 'results' array.
@@ -60,7 +58,7 @@ angular.module('starter.controllers', ['starter.services']) //services
     var state = locationArr[1];
     //(3.) We make POST request to our node route
     //to pass it the city and state. Try just passing 1 param = citystate
-    $http.post(host + '/api/external', {city: city, state: state})
+    $http.post('http://localhost:8080/api/external', {city: city, state: state})
     //(4.)The Node route/server will then have a route & function
     //taking care of the Zillow API call. It will get the results,
     //and res.send it back to this controller.
@@ -199,7 +197,7 @@ angular.module('starter.controllers', ['starter.services']) //services
 
 })
 
-.controller('LoginCtrl', function($location, $rootScope, $state, Auth) {
+.controller('LoginCtrl', function($location, $rootScope, $state, Auth, Host) {
   console.log("Login controller loaded");
   var vm = this;
 

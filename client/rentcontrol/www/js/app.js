@@ -1,6 +1,5 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-
 // //set up API endpoint as a constant
 // .constant('ApiEndpoint', {
 //   url: 'http://localhost:8080/api'

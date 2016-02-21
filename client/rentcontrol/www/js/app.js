@@ -1,16 +1,16 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 
-//set up API endpoint as a constant
-.constant('ApiEndpoint', {
-  url: 'http://localhost:8080/api'
-})
+// //set up API endpoint as a constant
+// .constant('ApiEndpoint', {
+//   url: 'http://localhost:8080/api'
+// })
 
-//now set one up for Zillow
+// //now set one up for Zillow
 
-.constant('ZillowEndpoint', {
-  url: 'http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='
-})
+// .constant('ZillowEndpoint', {
+//   url: 'http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id='
+// })
 
 // .run(['$http', '$cookies', function($http, $cookies) {
 //   $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;

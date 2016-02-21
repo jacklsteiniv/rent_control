@@ -1,8 +1,4 @@
 {
   "name": "rentcontrol",
-  "app_id": "",
-  "proxies": [{
-    "path": "/api",
-    "proxyUrl": "http://localhost:8080/api/authenticate"
-  }]
+  "app_id": ""
 }

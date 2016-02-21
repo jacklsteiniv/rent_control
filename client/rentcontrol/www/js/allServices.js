@@ -3,16 +3,15 @@ angular.module('starter.services', [])
   //All services will go here.
 
 //log user in, log out, check if logged in.
-.factory('Auth', function($http, $q, ApiEndpoint, AuthToken) {
+.factory('Auth', function($http, $q, AuthToken) {
 
-  console.log('ApiEndpoint', ApiEndpoint) //test api endpoint
   var authFactory = {};
 
   //login function
   authFactory.login = function(email, password) {
 
     //promise object for login
-    return $http.post(ApiEndpoint.url + '/authenticate', { //calling on API Endpoint constant for token.
+    return $http.post(host + '/api/authenticate', { //calling on API endpoint for token.
       //name: name,
       email: email,
       password: password,
@@ -99,47 +98,6 @@ angular.module('starter.services', [])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ed Yu',
-    lastText: 'I am an Ed Mon'
-  }, {
-    id: 1,
-    name: 'Morgan Lim',
-    lastText: 'Look at our great app!'
-  }, {
-    id: 2,
-    name: 'Keyan B',
-    lastText: 'I should buy a cat'
-    // face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'La Baik',
-    lastText: 'Can someone take the trash out?'
-  }, {
-    id: 4,
-    name: 'Grant Roy',
-    lastText: 'It depends...'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
 
 })
 

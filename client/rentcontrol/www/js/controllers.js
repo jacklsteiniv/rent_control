@@ -11,7 +11,7 @@ angular.module('starter.controllers', ['starter.services']) //services
   //make an $http POST request to users api route.
 
   vm.saveUser = function() {
-    $http.post('http://localhost:8080/api/users', vm.userData)
+    $http.post(host + '/api/users', vm.userData)
     .success(function(data) {
         vm.userData = {};
         console.log("You signed up!")
@@ -44,7 +44,7 @@ angular.module('starter.controllers', ['starter.services']) //services
   var searchCount = -3;
 
   vm.getHood = function() {
-    //$scope.Cities = Cities.all();
+
     searchCount+=3;
     var citystate = vm.location;
 
@@ -57,7 +57,7 @@ angular.module('starter.controllers', ['starter.services']) //services
     var state = locationArr[1];
     //(3.) We make POST request to our node route
     //to pass it the city and state. Try just passing 1 param = citystate
-    $http.post('http://localhost:8080/api/external', {city: city, state: state})
+    $http.post(host + '/api/external', {city: city, state: state})
     //(4.)The Node route/server will then have a route & function
     //taking care of the Zillow API call. It will get the results,
     //and res.send it back to this controller.
@@ -87,20 +87,22 @@ angular.module('starter.controllers', ['starter.services']) //services
       //is below the threshold (i.e. 500000), push it to new array,
       //and append the hood at that same index to it. You can split them later.
 
-
       var priceArr = [];
       var filter = vm.filters[0]; //the max price. You get this from the Filters controller.
       for (var i in numArr) {
         if(numArr[i] <= filter) {
           numArr[i] += hoodArr[i]; //join the values of hoodArr and numArr at same index together.
+          console.log("One option is " + numArr[i]);
+          if(numArr[i][6] === 0) { //splice it out if it has the extra 0.
+            numArr[i].slice(6,7);
+            console.log("The sliced string is " + numArr[i]);
+          }
           priceArr.push(numArr[i]);
-          // priceArr.push(hoodArr[i]); //push in the arr at that same index.
-          // priceArr.join(', '); //join them together - i.e. 355000CapitolHill.
         }
       }
-      priceArr.sort();
-      console.log("The priceArr meeting filter 500000 is " + priceArr);
-      //Splice out the first element (just a number, invalid)
+      priceArr.sort(); //ascending order
+      console.log("The priceArr meeting filter" + filter + " is " + priceArr);
+      //Splice out the first element (just a number, invalid.)
       priceArr.splice(0,1);
 
       //Shuffle for random results.
@@ -119,10 +121,6 @@ angular.module('starter.controllers', ['starter.services']) //services
 
       shuffle(priceArr);
       console.log("The shuffled priceArr meeting filter" + filter + " is " + priceArr);
-
-      //PROMISE
-      //Set up a promise below: You want this to finish before ResultsCtrl starts.
-      //var dataPromise = function() {
 
       //You're going to want to send the priceArr to the service.
       vm.prices = Prices.all();
@@ -159,7 +157,7 @@ angular.module('starter.controllers', ['starter.services']) //services
         document.getElementById('numthree').innerHTML = vm.price3.substring(0,6);
         document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length);
         document.getElementById('locale').innerHTML = "<h3>Here are some great neighborhoods under your stated budget.</h3>";
-
+        document.getElementById('city').innerHTML = vm.city;
 
         //Google maps url. Need to inject $sce to trust it as a URL.
         //$scope.currentProjectUrl = $sce.trustAsResourceUrl($scope.currentProject.url)
@@ -179,20 +177,6 @@ angular.module('starter.controllers', ['starter.services']) //services
 
   //Note: everything executes asynchronously. This will fire off as the Search Ctrl
   //is being executed. Therefore, run everything single-page from Search Ctrl.
-
-    // //Set variables for contents of the cityFactory.
-    // vm.cities = Cities.all();
-    // console.log("The cities array in Results is "+ vm.cities);
-    // vm.city = vm.cities[0];
-    // vm.state = vm.cities[1];
-    // vm.citystate = JSON.stringify(Cities.all());
-
-    // //And for the Prices factory
-    // vm.prices = Prices.all();
-    // console.log("The prices array in Results is " + vm.prices);
-    // vm.price1 = vm.prices[0];
-    // vm.price2 = vm.prices[1];
-    // vm.price3 = vm.prices[2];
 
 })
 
@@ -272,5 +256,3 @@ angular.module('starter.controllers', ['starter.services']) //services
     enableFriends: true
   };
 })
-
-

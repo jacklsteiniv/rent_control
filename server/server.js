@@ -16,6 +16,9 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var rp  = require('request-promise');
+
+//Setting host and port for EC2 deployment.
+var host = "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com" || "http://localhost";
 var port = 8080;
 //pull in the User schema from Mongo
 var User = require('./app/models/user');

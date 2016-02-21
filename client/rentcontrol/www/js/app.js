@@ -1,5 +1,7 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
+var host = 'http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com' || 'http://localhost';
+
 
 //set up API endpoint as a constant
 .constant('ApiEndpoint', {

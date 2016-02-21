@@ -12,7 +12,7 @@ angular.module('starter.services', [])
   authFactory.login = function(email, password) {
 
     //promise object for login
-    return $http.post(ApiEndpoint.url + '/authenticate', { //calling on API Endpoint constant for token.
+    return $http.post(host + '/api/authenticate', { //calling on API Endpoint constant for token.
       //name: name,
       email: email,
       password: password,

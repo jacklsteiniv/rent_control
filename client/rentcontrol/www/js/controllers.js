@@ -9,7 +9,7 @@ angular.module('starter.controllers', ['starter.services']) //services
 
 .controller('CreateUserCtrl', function($http, $state, Host) {
   var vm = this;
-  var host = "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com" || "http://localhost";
+  var host = "http://localhost" || "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com";
   var port = 8080;
   //make an $http POST request to users api route.
 
@@ -37,7 +37,7 @@ angular.module('starter.controllers', ['starter.services']) //services
 .controller('SearchCtrl', function($http, $scope, Cities, Prices, Filters, Host) {
   var vm = this;
   API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
-  var host = "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com" || "http://localhost";
+  var host = "http://localhost" || "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com";
   var port = 8080;
   //when you hit search, it makes an API call to Zillow.
   //the results are filtered by the user's priorities, and
@@ -83,6 +83,7 @@ angular.module('starter.controllers', ['starter.services']) //services
       response['zindexArr'].forEach(function(price) {
         numArr.push(price);
       })
+      numArr.splice(0,1);
       console.log("The numArr is " + numArr);
       //name the response as a variable to render in angular.
       vm.hoodArr = hoodArr;
@@ -91,6 +92,8 @@ angular.module('starter.controllers', ['starter.services']) //services
       //is below the threshold (i.e. 500000), push it to new array,
       //and append the hood at that same index to it. You can split them later.
 
+      //NOTE: consider re-writing as an array of Objects (key = hood, value = zindex)
+      //for more accurate hood-zindex matching
 
       var priceArr = [];
       var filter = vm.filters[0];

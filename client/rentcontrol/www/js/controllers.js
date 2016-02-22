@@ -9,11 +9,12 @@ angular.module('starter.controllers', ['starter.services']) //services
 
 .controller('CreateUserCtrl', function($http, $state, Host) {
   var vm = this;
-
+  var host = "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com" || "http://localhost";
+  var port = 8080;
   //make an $http POST request to users api route.
 
   vm.saveUser = function() {
-    $http.post(host + '/api/users', vm.userData)
+    $http.post(host + ':'+ port+'/api/users', vm.userData)
     .success(function(data) {
         vm.userData = {};
         console.log("You signed up!")
@@ -36,6 +37,8 @@ angular.module('starter.controllers', ['starter.services']) //services
 .controller('SearchCtrl', function($http, $scope, Cities, Prices, Filters, Host) {
   var vm = this;
   API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
+  var host = "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com" || "http://localhost";
+  var port = 8080;
   //when you hit search, it makes an API call to Zillow.
   //the results are filtered by the user's priorities, and
   //pushed to their 'results' array.
@@ -58,7 +61,7 @@ angular.module('starter.controllers', ['starter.services']) //services
     var state = locationArr[1];
     //(3.) We make POST request to our node route
     //to pass it the city and state. Try just passing 1 param = citystate
-    $http.post('http://localhost:8080/api/external', {city: city, state: state})
+    $http.post(host + ':'+ port + '/api/external', {city: city, state: state})
     //(4.)The Node route/server will then have a route & function
     //taking care of the Zillow API call. It will get the results,
     //and res.send it back to this controller.
@@ -90,7 +93,8 @@ angular.module('starter.controllers', ['starter.services']) //services
 
 
       var priceArr = [];
-      var filter = vm.filters[0]; //the max price. You get this from the Filters controller.
+      var filter = vm.filters[0];
+      console.log("The filter is " + filter); //the max price. You get this from the Filters controller.
       for (var i in numArr) {
         if(numArr[i] <= filter) {
           numArr[i] += hoodArr[i]; //join the values of hoodArr and numArr at same index together.

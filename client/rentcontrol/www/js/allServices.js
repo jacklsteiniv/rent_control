@@ -5,7 +5,7 @@ angular.module('starter.services', [])
 //Set the host here.
 
 .factory('Host', function() {
-  var host = "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com" || "http://localhost";
+  var host = "http://localhost" || "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com";
 
   return host;
 })
@@ -13,12 +13,14 @@ angular.module('starter.services', [])
 .factory('Auth', function($http, $q, AuthToken, Host) {
 
   var authFactory = {};
+  var host = "http://localhost" || "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com";
+  var port = 8080;
 
   //login function
   authFactory.login = function(email, password) {
 
     //promise object for login
-    return $http.post('http://localhost:8080/api/authenticate', { //calling on API endpoint for token.
+    return $http.post(host + ':' + port + '/api/authenticate', { //calling on API endpoint for token.
       email: email,
       password: password,
       //zip: zip

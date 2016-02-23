@@ -20,7 +20,7 @@ angular.module('starter.services', [])
   authFactory.login = function(email, password) {
 
     //promise object for login
-    return $http.post(host + ':' + port + '/api/authenticate', { //calling on API endpoint for token.
+    return $http.post('http://localhost:8080/api/authenticate', { //calling on API endpoint for token.
       email: email,
       password: password,
       //zip: zip
@@ -45,7 +45,7 @@ angular.module('starter.services', [])
   //get logged in user
   authFactory.getUser = function() {
     if(AuthToken.getToken())
-      return $http.get('/api/me', {cache: true});
+      return $http.get('https://rent-control-ionic.herokuapp.com/api/me', {cache: true});
     else
       return $q.reject({message: "The user has no access token."});
   };
@@ -118,27 +118,27 @@ angular.module('starter.services', [])
 
   //GET 1 user
   userFactory.get = function(id) {
-    return $http.get('/api/users/' + id);
+    return $http.get('https://rent-control-ionic.herokuapp.com/api/users/' + id);
   }
 
   //GET all users
   userFactory.get = function() {
-    return $http.get('/api/users');
+    return $http.get('https://rent-control-ionic.herokuapp.com/api/users');
   }
 
   //POST a new user with schema data
   userFactory.create = function(userData) {
-    return $http.post('/api/users/', userData);
+    return $http.post('https://rent-control-ionic.herokuapp.com/api/users/', userData);
   }
 
   //UPDATE a user - and their choices@
   userFactory.update = function(id, userData) {
-    return $http.put('/api/users' + id, userData);
+    return $http.put('https://rent-control-ionic.herokuapp.com/api/users' + id, userData);
   }
 
   //DELETE a user
   userFactory.delete = function(id) {
-    return $http.delete('/api/users' + id);
+    return $http.delete('https://rent-control-ionic.herokuapp.com/api/users' + id);
   }
 
   //return the whole userFactory

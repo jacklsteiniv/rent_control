@@ -14,7 +14,7 @@ angular.module('starter.controllers', ['starter.services']) //services
   //make an $http POST request to users api route.
 
   vm.saveUser = function() {
-    $http.post(host + ':'+ port+'/api/users', vm.userData)
+    $http.post('https://localhost:8080/api/users', vm.userData)
     .success(function(data) {
         vm.userData = {};
         console.log("You signed up!")
@@ -61,7 +61,7 @@ angular.module('starter.controllers', ['starter.services']) //services
     var state = locationArr[1];
     //(3.) We make POST request to our node route
     //to pass it the city and state. Try just passing 1 param = citystate
-    $http.post(host + ':'+ port + '/api/external', {city: city, state: state})
+    $http.post('http://localhost:8080/api/external', {city: city, state: state})
     //(4.)The Node route/server will then have a route & function
     //taking care of the Zillow API call. It will get the results,
     //and res.send it back to this controller.
@@ -163,8 +163,8 @@ angular.module('starter.controllers', ['starter.services']) //services
         // Appending 1, 2 and 3 neighborhoods to list items.
         // Split each item into its number (substring 0,6; 6, priceArr[i].length)
 
-        //Account for the case (count = 0) when you need to bypass extra 0.
-        if(searchCount == 0) {
+
+
           document.getElementById('numone').innerHTML = vm.price1.substring(0,6);
           document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length);
           document.getElementById('numtwo').innerHTML = vm.price2.substring(0,6);
@@ -172,16 +172,7 @@ angular.module('starter.controllers', ['starter.services']) //services
           document.getElementById('numthree').innerHTML = vm.price3.substring(0,6);
           document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length);
           document.getElementById('locale').innerHTML = "<h3>Here are some great neighborhoods under your stated budget.</h3>";
-        }
-        else {
-           document.getElementById('numone').innerHTML = vm.price1.substring(0,6);
-          document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length);
-          document.getElementById('numtwo').innerHTML = vm.price2.substring(0,6);
-          document.getElementById('two').innerHTML = vm.price2.substring(6, vm.price2.length);
-          document.getElementById('numthree').innerHTML = vm.price3.substring(0,6);
-          document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length);
-          document.getElementById('locale').innerHTML = "<h3>Here are some great neighborhoods under your stated budget.</h3>";
-        }
+
         vm.url = "https://www.google.com/maps/embed/v1/place?q&state=state&city=city&key=AIzaSyC448ZcgKl06FhNnLfo612YzbE6PCltOcw";
         //Trust the google maps embedded URL
         vm.trustUrl = function(url) {

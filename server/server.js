@@ -18,7 +18,8 @@ var mongoose = require('mongoose');
 var rp  = require('request-promise');
 
 //Setting host and port for EC2 deployment.
-var host = "http://localhost" ||"http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com";
+var host = "https://rent-control-ionic.herokuapp.com" || "http://localhost";
+//var host = "http://"+window.location.hostname;
 var port = 8080;
 //pull in the User schema from Mongo
 var User = require('./app/models/user');
@@ -28,7 +29,7 @@ var jwt = require('jsonwebtoken');
 var superSecret = 'blamechance';
 
 //connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/rentcontrol')
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/rentcontrol');
 
 //app config
 app.use(express.static(__dirname + "/www"));

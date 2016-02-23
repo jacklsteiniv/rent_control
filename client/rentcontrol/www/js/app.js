@@ -145,6 +145,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     templateUrl: 'templates/results.html',
   })
 
+
+
   $urlRouterProvider.otherwise('/tab/dash');
 
 });

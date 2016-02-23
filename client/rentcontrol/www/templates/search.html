@@ -16,7 +16,7 @@
   <div id="locale">
   </div>
     <!-- Google Maps iFrame for city. -->
-    <iframe id ="map"src="https://www.google.com/maps/embed/v1/place?q=LosAngeles,CA&key=AIzaSyC448ZcgKl06FhNnLfo612YzbE6PCltOcw">
+    <iframe id ="map"ng-src="{{search.trustUrl(search.url)}}">
     </iframe>
       <strong><li id="one"></li></strong> -Average Home price: $<div id="numone" style = "display:inline"></div>
       <strong><li id="two"></li></strong> -Average Home price: $<div id="numtwo" style = "display:inline"></div>

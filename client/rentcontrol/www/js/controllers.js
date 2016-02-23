@@ -9,7 +9,7 @@ angular.module('starter.controllers', ['starter.services']) //services
 
 .controller('CreateUserCtrl', function($http, $state, Host) {
   var vm = this;
-  var host = "http://localhost" || "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com";
+  var host = "https://rent-control-ionic.herokuapp.com" || "http://localhost";
   var port = 8080;
   //make an $http POST request to users api route.
 
@@ -34,10 +34,10 @@ angular.module('starter.controllers', ['starter.services']) //services
   };
 })
 
-.controller('SearchCtrl', function($http, $scope, Cities, Prices, Filters, Host) {
+.controller('SearchCtrl', function($http, $scope, $sce, Cities, Prices, Filters, Host) {
   var vm = this;
   API_KEY='X1-ZWz19uqcii2ozv_1zmzq';
-  var host = "http://localhost" || "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com";
+  var host = "https://rent-control-ionic.herokuapp.com" || "http://localhost";
   var port = 8080;
   //when you hit search, it makes an API call to Zillow.
   //the results are filtered by the user's priorities, and
@@ -77,6 +77,7 @@ angular.module('starter.controllers', ['starter.services']) //services
       response['nameArr'].forEach(function(hood) {
         hoodArr.push(hood);
       })
+      hoodArr.splice(0,1);
       console.log("The hoodArr is " + hoodArr);
 
       var numArr = [];
@@ -99,8 +100,9 @@ angular.module('starter.controllers', ['starter.services']) //services
       var filter = vm.filters[0];
       console.log("The filter is " + filter); //the max price. You get this from the Filters controller.
       for (var i in numArr) {
-        if(numArr[i] <= filter) {
+        if(numArr[i] < filter) { //if the neighborhood price is less than the filter.
           numArr[i] += hoodArr[i]; //join the values of hoodArr and numArr at same index together.
+          numArr[i].slice(5,6);
           priceArr.push(numArr[i]);
           // priceArr.push(hoodArr[i]); //push in the arr at that same index.
           // priceArr.join(', '); //join them together - i.e. 355000CapitolHill.
@@ -160,13 +162,31 @@ angular.module('starter.controllers', ['starter.services']) //services
 
         // Appending 1, 2 and 3 neighborhoods to list items.
         // Split each item into its number (substring 0,6; 6, priceArr[i].length)
-        document.getElementById('numone').innerHTML = vm.price1.substring(0,6);
-        document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length);
-        document.getElementById('numtwo').innerHTML = vm.price2.substring(0,6);
-        document.getElementById('two').innerHTML = vm.price2.substring(6, vm.price2.length);
-        document.getElementById('numthree').innerHTML = vm.price3.substring(0,6);
-        document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length);
-        document.getElementById('locale').innerHTML = "<h3>Here are some great neighborhoods under your stated budget.</h3>";
+
+        //Account for the case (count = 0) when you need to bypass extra 0.
+        if(searchCount == 0) {
+          document.getElementById('numone').innerHTML = vm.price1.substring(0,6);
+          document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length);
+          document.getElementById('numtwo').innerHTML = vm.price2.substring(0,6);
+          document.getElementById('two').innerHTML = vm.price2.substring(6, vm.price2.length);
+          document.getElementById('numthree').innerHTML = vm.price3.substring(0,6);
+          document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length);
+          document.getElementById('locale').innerHTML = "<h3>Here are some great neighborhoods under your stated budget.</h3>";
+        }
+        else {
+           document.getElementById('numone').innerHTML = vm.price1.substring(0,6);
+          document.getElementById('one').innerHTML = vm.price1.substring(6, vm.price1.length);
+          document.getElementById('numtwo').innerHTML = vm.price2.substring(0,6);
+          document.getElementById('two').innerHTML = vm.price2.substring(6, vm.price2.length);
+          document.getElementById('numthree').innerHTML = vm.price3.substring(0,6);
+          document.getElementById('three').innerHTML = vm.price3.substring(6, vm.price3.length);
+          document.getElementById('locale').innerHTML = "<h3>Here are some great neighborhoods under your stated budget.</h3>";
+        }
+        vm.url = "https://www.google.com/maps/embed/v1/place?q&state=state&city=city&key=AIzaSyC448ZcgKl06FhNnLfo612YzbE6PCltOcw";
+        //Trust the google maps embedded URL
+        vm.trustUrl = function(url) {
+          return $sce.trustAsResourceUrl(url);
+        }
 
 
         //Google maps url. Need to inject $sce to trust it as a URL.

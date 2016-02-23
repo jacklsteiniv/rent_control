@@ -5,7 +5,7 @@ angular.module('starter.services', [])
 //Set the host here.
 
 .factory('Host', function() {
-  var host = "http://localhost" || "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com";
+  var host = "https://rent-control-ionic.herokuapp.com" || "http://localhost";
 
   return host;
 })
@@ -13,7 +13,7 @@ angular.module('starter.services', [])
 .factory('Auth', function($http, $q, AuthToken, Host) {
 
   var authFactory = {};
-  var host = "http://localhost" || "http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com";
+  var host = "https://rent-control-ionic.herokuapp.com" || "http://localhost";
   var port = 8080;
 
   //login function

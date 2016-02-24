@@ -16,17 +16,13 @@ I designed this application specifically for mobile devices, using the Ionic fra
 
 I utilized the Zillow API for retrieving neighborhood data (the average home price) for a given city and state. I used Node on the server side to make API calls, while consuming that data with Angular/Ionic on the client side. A user is able to log in, answer questions (budget, their preferences for schools, crime, and walkability in a neighborhood), and then search a city and state to receive personalized recommendations for neighborhoods.
 
+##User Flow/Experience
+
+Below is a walk-through of how a user may interact with Rent Control:
+
 ##Installation Instructions
 
-The application is hosted on Amazon Web Services (EC2) at http://ec2-54-191-27-68.us-west-2.compute.amazonaws.com:8000/. To run the application locally, it will be necessary to install the following:
-
--Node
--MongoDB
--Express
--Angular
--Ionic
-
-The application can be served locally using 'ionic serve --lab' on port 8100, to simulate the mobile experience from a desktop.
+The server side of this application is hosted at https://rent-control-ionic.herokuapp.com. The front end must be served locally using Ionic to provide the best mobile experience. This application is designed for mobile devices using the Ionic/Cordova framework; if you'd like to beta-test the app, please let me know and I'd be happy to send you instructions for doing so.
 
 ##Hurdles/Challenges/Next Steps
 
@@ -39,5 +35,9 @@ As next steps, I would like to factor current location into the embedded Google 
 ##User Stories/Trello
 
 https://trello.com/b/U2AekT4f/project-4-rent-control
+
+##Feedback/Contact
+
+Please feel free to leave feedback on this project, as I'm new to mobile development and would love to hear your thoughts!
 
 

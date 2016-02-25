@@ -19,7 +19,16 @@ I utilized the Zillow API for retrieving neighborhood data (the average home pri
 ##User Flow/Experience
 
 First, a user can create an account or log in (using JSON web token authentication.) Once logged in, a user begins answering questions to help filter down their neighborhood search.
+
 ![alt tag](https://cloud.githubusercontent.com/assets/15351814/13307433/087a81aa-db20-11e5-8e8f-1c33490977e4.png)
+
+The budget limit that the user provides is stored as a filter variable, which is used to filter out neighborhoods from the Zillow API call.
+
+![alt tag](https://cloud.githubusercontent.com/assets/15351814/13307442/14d2fa0e-db20-11e5-8c57-8040d4d3f2ba.png)
+
+The user is then prompted with questions of preference in a neighborhood (school quality, crime, walkability) that will be factored into future iterations of Rent Control. Finally, with their preferences/price filter saved, a user is able to search by city and state, and see three random neighborhoods that meet those criteria. 
+
+![alt tag](https://cloud.githubusercontent.com/assets/15351814/13165743/64712ebe-d675-11e5-91b1-468fe60c6f9b.png)
 
 ##Installation Instructions
 

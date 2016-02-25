@@ -18,7 +18,8 @@ I utilized the Zillow API for retrieving neighborhood data (the average home pri
 
 ##User Flow/Experience
 
-Below is a walk-through of how a user may interact with Rent Control:
+First, a user can create an account or log in (using JSON web token authentication.) Once logged in, a user begins answering questions to help filter down their neighborhood search.
+![alt tag](https://cloud.githubusercontent.com/assets/15351814/13307433/087a81aa-db20-11e5-8e8f-1c33490977e4.png)
 
 ##Installation Instructions
 
